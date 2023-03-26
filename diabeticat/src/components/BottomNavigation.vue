@@ -1,21 +1,27 @@
 <template>
-    <v-bottom-navigation app>
-      <v-btn height="100%" width="25%">
-        <router-link to="/Landing">Home</router-link>
+    <v-bottom-navigation app grow mode="shift" :bg-color="color" v-model="value">
+      <v-btn height="100%" @click="router.push('/Landing')">
+        <v-icon icon="mdi-home" />
       </v-btn>
-      <v-btn height="100%" width="25%">
-        <router-link to="/A">A</router-link>
+      <v-btn height="100%" @click="router.push('/A')">
+        <v-icon icon="mdi-paw" />
       </v-btn>      
-      <v-btn height="100%" width="25%">
-        <router-link to="/B">B</router-link>
+      <v-btn height="100%" @click="router.push('/B')">
+        <v-icon icon="mdi-medical-bag" />
       </v-btn>
-      <v-btn height="100%" width="25%">
-        <router-link to="/C">C</router-link>
+      <v-btn height="100%" @click="router.push('/C')">
+        <v-icon icon="mdi-account" />
       </v-btn>
     </v-bottom-navigation>
   </template>
 
 <script setup>
+  import { useRouter } from 'vue-router';
+  import { ref } from 'vue'
+  const router = useRouter();
+
+  const value = ref();
+
 
 </script>
 

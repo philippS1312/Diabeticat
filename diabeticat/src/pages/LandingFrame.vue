@@ -18,3 +18,9 @@ import RegisterDialog from './RegisterDialog.vue'
 const dialog =ref(false) 
 
 </script>
+
+<style scoped>
+*{
+    margin-top: 5%;
+}
+</style>

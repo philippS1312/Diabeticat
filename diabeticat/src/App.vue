@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-app-bar color="primary" app dark>
-    <v-icon icon="home" />
+    <v-app-bar color="primary" app dark v-if="false">
+      <v-icon icon="mdi-home" />
       <v-toolbar-title>App Bar</v-toolbar-title>
       <v-btn @click="test()">Test</v-btn>
       <v-btn @click="toggle = !toggle">Toggle</v-btn>
@@ -26,6 +26,7 @@
 import NavigationBar from './components/BottomNavigation.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
+
 const toggle = ref(false)
 
 const router = useRouter();
@@ -36,14 +37,11 @@ function test()
 }
 </script>
 
-
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
 }
 </style>
