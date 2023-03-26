@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Landing from './pages/Landing.vue'
-import Aa from './pages/A.vue'
-import Bb from './pages/B.vue'
-import Cc from './pages/C.vue'
+import LandingPage from './pages/LandingFrame.vue'
+import Aa from './pages/RegisterDialog.vue'
+import Bb from './pages/BFrame.vue'
+import Cc from './pages/CFrame.vue'
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
       { path: '/', redirect: '/Landing' },
-      { path: '/Landing', component: Landing },
+      { path: '/Landing', component: LandingPage },
       { path: '/A', component: Aa },
       { path: '/B', component: Bb },
       { path: '/C', component: Cc },
-      { path: '/:notFound(.*)', component: Landing }
+      { path: '/:notFound(.*)', component: LandingPage }
     ]
   });
   
