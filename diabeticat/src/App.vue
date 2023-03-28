@@ -17,7 +17,9 @@
       </v-container>
       <router-view></router-view>
     </v-main>
-    <NavigationBar></NavigationBar>
+    
+    <NavigationBar v-if="showNavBar()"></NavigationBar>
+
   </v-app>
 </template>
 
@@ -31,6 +33,11 @@ const toggle = ref(false)
 
 const router = useRouter();
 
+function showNavBar() {
+  // Hide NavigationBar for Welcome or Login Page
+  return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login'
+}
+
 function test()
 { 
   router.push('/C')
@@ -38,10 +45,21 @@ function test()
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+  }
+
+  body {
+    margin: 0 auto;
+  }
+
+  /* Mobile App Design */
+  @media screen and (max-width: 600px){
+    
+  }
+
 </style>
