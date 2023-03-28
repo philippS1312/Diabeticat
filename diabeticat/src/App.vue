@@ -8,13 +8,6 @@
 
     </v-app-bar>
     <v-main>
-      <v-container v-if="toggle">
-        Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Quis blanditiis beatae praesentium repudiandae
-        sunt officiis, vero maxime officia obcaecati nisi
-        excepturi. Sit laboriosam provident laborum? Rem
-        recusandae ea possimus illo.
-      </v-container>
       <router-view></router-view>
     </v-main>
     
@@ -34,8 +27,8 @@ const toggle = ref(false)
 const router = useRouter();
 
 function showNavBar() {
-  // Hide NavigationBar for Welcome or Login Page
-  return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login'
+  // Hide NavigationBar for Welcome, Login and Register Page
+  return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login' && router.currentRoute.value.fullPath != '/register' 
 }
 
 function test()

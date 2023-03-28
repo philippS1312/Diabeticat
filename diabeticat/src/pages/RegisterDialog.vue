@@ -1,66 +1,124 @@
 <template>
-    <v-card>
-        <v-card-title class="text-h5">Eine gute Entscheidung!</v-card-title>
-        <v-card-text>Melde dich jetzt hier an.</v-card-text>
-        <v-card-actions>
-            <v-spacer>
-                <v-text-field 
-                    label="E-mail"
-                    v-model="email" 
-                    prepend-inner-icon="mdi-email-outline"
-                    variant="outlined"
-                    required 
-                    clearable></v-text-field>
-                <v-text-field 
-                    label="Dein Name"
-                    v-model="name" 
-                    prepend-inner-icon="mdi-account-outline"
-                    variant="outlined"
-                    required
-                    clearable></v-text-field>
-                <v-text-field
-                    v-model="password"
-                    :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    prepend-inner-icon="mdi-lock-outline"
-                    :type="showPassword ? 'text' : 'password'"
-                    name="input-pw"
-                    label="Passwort"
-                    hint="Bitte gebe ein Passwort an."
-                    variant="outlined"
-                    counter
-                    @click:append-inner="showPassword = !showPassword">
-                </v-text-field>
-                <v-text-field
-                    v-model="confirmPassword"
-                    prepend-inner-icon="mdi-lock-outline"
-                    :type="showPassword ? 'text' : 'password'"
-                    name="input-confirmpw"
-                    label="Passwort bestätigen"
-                    hint="Bitte bestätige dein Passwort."
-                    variant="outlined"
-                    counter>
-                </v-text-field>
-                <v-checkbox >
-                    <template v-slot:label>
-                        <div>
-                            Ich stimme hiermit den 
-                            <a target="_blank" href="https://www.youtube.com/watch?v=d1YBv2mWll0&ab_channel=Sordiway">Nutzungsbedingungen</a>
-                            von Diabeticat zu.
-                        </div>
-                    </template>
-                </v-checkbox>
-            </v-spacer>
-        </v-card-actions>
-        <slot></slot>
-    </v-card>
+    <div id="welcome-page">
+        <v-card>
+            <v-img src="../assets/logo-transparent.png" />
+            <h1 class="text-h5">Register</h1>
+
+            <v-text-field 
+                prepend-inner-icon="mdi-email-outline" 
+                clearable 
+                label="Email"
+                placeholder="user@example.com" 
+                variant="outlined"/>
+
+            <v-text-field 
+                prepend-inner-icon="mdi-account-outline" 
+                clearable 
+                label="Dein Name"
+                placeholder="Cat" 
+                variant="outlined"/>
+
+            <v-text-field 
+                prepend-inner-icon="mdi-lock-outline" 
+                clearable 
+                label="Passwort"
+                variant="outlined"
+                counter
+                :type="showPassword ? 'text' : 'password'" 
+                :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append-inner="showPassword = !showPassword"/>
+            
+            <v-text-field 
+                prepend-inner-icon="mdi-lock-outline" 
+                clearable 
+                label="Passwort bestätigen"
+                hint="Bitte bestätige dein Passwort."
+                variant="outlined"
+                counter
+                :type="showPassword ? 'text' : 'password'"/>
+            <v-btn
+                prepend-icon="mdi-account-circle"
+                rounded="lg"
+                color="orange"
+                @click="register()">
+                Register
+            </v-btn>
+        </v-card>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
-const email = ref('');
+const router = useRouter();
+
 const showPassword = ref(false);
-const password = ref('');
-const confirmPassword = ref('');
+
+function register(){
+    console.log('Register!')
+    router.push('/Home')
+}
 
 </script>
+
+<style scoped>
+
+    * {
+        margin: auto;
+    }
+
+    #welcome-page {
+        background-color: #A5DAD2;
+        width: 100%;
+        height: 100%;
+        padding-top: 150px;
+    }
+
+    .v-card {
+        background-color: white;
+        width: 500px;
+        height: 450px;
+    }
+
+    .v-text-field {
+        width: 350px;
+    }
+
+    .v-img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+    
+    .v-btn {
+        width: 200px;
+    }
+
+    .text-h5 {
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: large;
+    }
+
+    /* Mobile App Design */
+    @media screen and (max-width: 600px){
+        #welcome-page {
+            background-color: #A5DAD2;
+            width: 100%;
+            height: 100%;
+        }
+
+        .v-card {
+            width: 80%;
+            height: 80%;
+        }
+
+        .v-text-field {
+            width: 80%;
+        }
+    }
+
+</style>

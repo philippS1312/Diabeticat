@@ -21,16 +21,9 @@
                 prepend-icon="mdi-lock"
                 rounded="lg"
                 color="blue-grey"
-                @click="dialog = true">
+                @click="$router.push('/register')">
                 Registrieren
             </v-btn>
-
-            <v-dialog v-model="dialog" persistent width="auto">
-                <RegisterDialog>
-                    <v-btn variant="text" @click="dialog = false">Registrierung abbrechen</v-btn>
-                </RegisterDialog>
-            </v-dialog>
-
         </v-card>
 
     </div>
@@ -39,10 +32,6 @@
 
 <script setup>
 
-    import { ref } from 'vue'
-    import RegisterDialog from './RegisterDialog.vue'
-
-    const dialog = ref(false) 
 
 </script>
 

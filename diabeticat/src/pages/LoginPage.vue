@@ -19,7 +19,9 @@
                 clearable 
                 label="Password"
                 variant="outlined"
-                type="password" />
+                :type="showPassword ? 'text' : 'password'" 
+                :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append-inner="showPassword = !showPassword"/>
 
             <v-btn
                 prepend-icon="mdi-account-circle"
@@ -36,9 +38,16 @@
 </template>
 
 <script setup>
+    import { ref } from 'vue'
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+
+    const showPassword = ref(false);
 
     function login() {
         console.log('Welcome!')
+        router.push('/Home')
     }
 
 </script>
