@@ -4,6 +4,7 @@
         <v-row justify="center">
             <v-dialog v-model="dialog" persistent width="auto">
             <RegisterDialog>
+                <v-btn>Registrierung abschließen</v-btn>
                 <v-btn variant="text" @click="dialog = false">Registrierung abbrechen</v-btn>
             </RegisterDialog>
         </v-dialog>

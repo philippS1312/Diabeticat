@@ -3,10 +3,10 @@
       <v-btn height="100%" @click="router.push('/Landing')">
         <v-icon icon="mdi-home" />
       </v-btn>
-      <v-btn height="100%" @click="router.push('/A')">
+      <v-btn height="100%" @click="router.push('/RegisterDialog')">
         <v-icon icon="mdi-paw" />
       </v-btn>      
-      <v-btn height="100%" @click="router.push('/B')">
+      <v-btn height="100%" @click="router.push('/HomeScreen')">
         <v-icon icon="mdi-medical-bag" />
       </v-btn>
       <v-btn height="100%" @click="router.push('/C')">
