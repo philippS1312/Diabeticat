@@ -1,10 +1,10 @@
-package de.pdbm.business.customer.boundary;
+package de.pdbm.business.api.boundary;
 
-import de.pdbm.business.customer.POSTRepresentation.PaymentPOST;
-import de.pdbm.business.customer.components.schemas.AddressPOJO;
-import de.pdbm.business.customer.components.schemas.CustomerPOJO;
-import de.pdbm.business.customer.components.schemas.PaymentPOJO;
-import de.pdbm.business.customer.entity.*;
+import de.pdbm.business.api.POSTRepresentation.PaymentPOST;
+import de.pdbm.business.api.components.schemas.AddressPOJO;
+import de.pdbm.business.api.components.schemas.CustomerPOJO;
+import de.pdbm.business.api.components.schemas.PaymentPOJO;
+import de.pdbm.business.api.entity.old.*;
 import de.pdbm.config.Configuration;
 
 import javax.inject.Inject;
@@ -30,6 +30,32 @@ import java.util.stream.Collectors;
  */
 @Path("")
 public class Resources {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**===============================================================================================**/
+    /**Beispiele:                                                                                     **/
+    /**===============================================================================================**/
 
     @Inject
     CustomerService customerService;

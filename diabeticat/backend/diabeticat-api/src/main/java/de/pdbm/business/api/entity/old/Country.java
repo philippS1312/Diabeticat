@@ -1,4 +1,4 @@
-package de.pdbm.business.customer.entity;
+package de.pdbm.business.api.entity.old;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

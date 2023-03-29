@@ -1,6 +1,6 @@
-package de.pdbm.business.customer.components.schemas;
+package de.pdbm.business.api.components.schemas;
 
-import de.pdbm.business.customer.entity.Customer;
+import de.pdbm.business.api.entity.old.Customer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

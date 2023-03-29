@@ -1,4 +1,4 @@
-package de.pdbm.business.customer.POSTRepresentation;
+package de.pdbm.business.api.POSTRepresentation;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

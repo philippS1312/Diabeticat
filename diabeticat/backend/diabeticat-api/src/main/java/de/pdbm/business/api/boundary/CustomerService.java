@@ -1,7 +1,7 @@
-package de.pdbm.business.customer.boundary;
+package de.pdbm.business.api.boundary;
 
 
-import de.pdbm.business.customer.entity.*;
+import de.pdbm.business.api.entity.old.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

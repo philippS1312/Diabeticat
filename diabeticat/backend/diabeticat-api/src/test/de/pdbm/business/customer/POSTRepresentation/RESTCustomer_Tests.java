@@ -1,7 +1,7 @@
-package de.pdbm.business.customer.POSTRepresentation;
-import de.pdbm.business.customer.components.schemas.AddressHref;
-import de.pdbm.business.customer.components.schemas.AddressPOJO;
-import de.pdbm.business.customer.components.schemas.CustomerPOJO;
+package de.pdbm.business.api.POSTRepresentation;
+import de.pdbm.business.api.components.schemas.AddressHref;
+import de.pdbm.business.api.components.schemas.AddressPOJO;
+import de.pdbm.business.api.components.schemas.CustomerPOJO;
 import de.pdbm.config.Configuration;
 
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
-package de.pdbm.business.customer.components.schemas;
+package de.pdbm.business.api.components.schemas;
 
-import de.pdbm.business.customer.entity.Payment;
+import de.pdbm.business.api.entity.old.Payment;
 
 import java.math.BigDecimal;
 

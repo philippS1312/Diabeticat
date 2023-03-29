@@ -1,4 +1,4 @@
-package de.pdbm.business.customer.components.schemas;
+package de.pdbm.business.api.components.schemas;
 
 import de.pdbm.config.Configuration;
 

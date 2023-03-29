@@ -1,6 +1,6 @@
-package de.pdbm.business.customer.components.schemas;
+package de.pdbm.business.api.components.schemas;
 
-import de.pdbm.business.customer.entity.Address;
+import de.pdbm.business.api.entity.old.Address;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.executable.ValidateOnExecution;
