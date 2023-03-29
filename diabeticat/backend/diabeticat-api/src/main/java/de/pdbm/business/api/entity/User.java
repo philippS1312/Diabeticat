@@ -15,8 +15,6 @@ public class User {
         private int user_id;
 
         private String user_name;
-        private String first_name;
-        private String last_name;
         private String email;
         private LocalDate create_date;
         private LocalDateTime last_update;
@@ -24,11 +22,9 @@ public class User {
         public User() {
 
         }
-        public User(int user_id, String user_name, String first_name, String last_name, String email, LocalDate create_date, LocalDateTime last_update) {
+        public User(int user_id, String user_name, String email, LocalDate create_date, LocalDateTime last_update) {
                 this.user_id = user_id;
                 this.user_name = user_name;
-                this.first_name = first_name;
-                this.last_name = last_name;
                 this.email = email;
                 this.create_date = create_date;
                 this.last_update = last_update;
@@ -48,22 +44,6 @@ public class User {
 
         public void setUser_name(String user_name) {
                 this.user_name = user_name;
-        }
-
-        public String getFirst_name() {
-                return first_name;
-        }
-
-        public void setFirst_name(String first_name) {
-                this.first_name = first_name;
-        }
-
-        public String getLast_name() {
-                return last_name;
-        }
-
-        public void setLast_name(String last_name) {
-                this.last_name = last_name;
         }
 
         public String getEmail() {
@@ -95,8 +75,6 @@ public class User {
                 return "User{" +
                         "user_id=" + user_id +
                         ", user_name='" + user_name + '\'' +
-                        ", first_name='" + first_name + '\'' +
-                        ", last_name='" + last_name + '\'' +
                         ", email='" + email + '\'' +
                         ", create_date=" + create_date +
                         ", last_update=" + last_update +
