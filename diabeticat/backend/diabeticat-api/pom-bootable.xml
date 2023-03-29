@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.pdbm</groupId>
+	<artifactId>dvd-rental-customer</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>dvd-rental-customer</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<wildfly.version>26.0.1.Final</wildfly.version>
+		<wildfly-jar-maven-plugin.version>8.1.0.Final</wildfly-jar-maven-plugin.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<!--
+		<db.driver>postgresql</db.driver>
+		<db.host>localhost:5432</db.host>
+		-->
+		<db.host>localhost:5432</db.host>
+		<db.driver>postgresql</db.driver>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>dvd-rental-customer</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>paths</include>
+					<include>META-INF/persistence.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<filters>
+			<filter>../paths.bootable.properties</filter>
+		</filters>
+
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-jar-maven-plugin</artifactId>
+				<version>${wildfly-jar-maven-plugin.version}</version>
+				<configuration>
+					<cli-sessions>
+						<cli-session>
+							<script-files>
+								<script>
+									cli-script.cli
+								</script>
+							</script-files>
+						</cli-session>
+					</cli-sessions>
+					<feature-packs>
+						<feature-pack>
+							<location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</location>
+						</feature-pack>
+						<feature-pack>
+							<groupId>org.wildfly</groupId>
+							<artifactId>wildfly-datasources-galleon-pack</artifactId>
+							<version>3.0.0.Final</version>
+						</feature-pack>
+					</feature-packs>
+					<layers>
+						<layer>cdi</layer>
+						<layer>jsf</layer>
+						<layer>ejb</layer>
+						<layer>jpa</layer>
+						<layer>jaxrs</layer>
+						<layer>bean-validation</layer>
+						<layer>h2-driver</layer>
+						<layer>h2-default-datasource</layer>
+						<layer>management</layer>
+						<layer>postgresql-driver</layer>
+					</layers>
+
+					<excluded-layers>
+						<layer>deployment-scanner</layer>
+					</excluded-layers>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp/</directory>
+							<include>**/*.xml</include>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

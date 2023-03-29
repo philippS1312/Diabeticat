@@ -1,0 +1,4 @@
+customerpath=${customer.path}
+filmpath=${film.path}
+storepath=${store.path}
+uipath=${ui.path}
