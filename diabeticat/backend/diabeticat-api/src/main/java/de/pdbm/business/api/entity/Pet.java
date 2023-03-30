@@ -1,10 +1,10 @@
 package de.pdbm.business.api.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import de.pdbm.business.api.entity.old.City;
+
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Pet entity from database. Holds pet data.
@@ -15,10 +15,16 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
     private String type;
     private Date birthdate;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
+
+    @OneToMany(mappedBy="pet")
+    private List<MeasurementData> measurementDataList;
 
     public Pet() {
 

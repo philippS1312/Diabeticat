@@ -1,8 +1,11 @@
 package de.pdbm.business.api.entity;
 
+import de.pdbm.business.api.entity.old.City;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * User entity from database. Holds user data.
@@ -13,10 +16,12 @@ public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
-
         private String username;
         private String email;
         private String password;
+
+        @OneToMany(mappedBy="user")
+        private List<Pet> petList;
 
         public User() {
 
