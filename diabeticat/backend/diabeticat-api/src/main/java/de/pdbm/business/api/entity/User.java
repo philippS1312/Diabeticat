@@ -1,7 +1,5 @@
 package de.pdbm.business.api.entity;
 
-import de.pdbm.business.api.entity.old.City;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
