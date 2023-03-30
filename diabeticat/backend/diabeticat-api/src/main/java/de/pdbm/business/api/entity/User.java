@@ -14,20 +14,18 @@ public class User {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int user_id;
 
-        private String user_name;
+        private String username;
         private String email;
-        private LocalDate create_date;
-        private LocalDateTime last_update;
+        private String password;
 
         public User() {
 
         }
-        public User(int user_id, String user_name, String email, LocalDate create_date, LocalDateTime last_update) {
+        public User(int user_id, String username, String email, String password) {
                 this.user_id = user_id;
-                this.user_name = user_name;
+                this.username = username;
                 this.email = email;
-                this.create_date = create_date;
-                this.last_update = last_update;
+                this.password = password;
         }
 
         public int getUser_id() {
@@ -38,12 +36,20 @@ public class User {
                 this.user_id = user_id;
         }
 
-        public String getUser_name() {
-                return user_name;
+        public String getUsername() {
+                return username;
         }
 
-        public void setUser_name(String user_name) {
-                this.user_name = user_name;
+        public void setUsername(String username) {
+                this.username = username;
+        }
+
+        public String getPassword() {
+                return password;
+        }
+
+        public void setPassword(String password) {
+                this.password = password;
         }
 
         public String getEmail() {
@@ -54,30 +60,13 @@ public class User {
                 this.email = email;
         }
 
-        public LocalDate getCreate_date() {
-                return create_date;
-        }
-
-        public void setCreate_date(LocalDate create_date) {
-                this.create_date = create_date;
-        }
-
-        public LocalDateTime getLast_update() {
-                return last_update;
-        }
-
-        public void setLast_update(LocalDateTime last_update) {
-                this.last_update = last_update;
-        }
-
         @Override
         public String toString() {
                 return "User{" +
                         "user_id=" + user_id +
-                        ", user_name='" + user_name + '\'' +
+                        ", username='" + username + '\'' +
                         ", email='" + email + '\'' +
-                        ", create_date=" + create_date +
-                        ", last_update=" + last_update +
+                        ", password='" + password + '\'' +
                         '}';
         }
 
