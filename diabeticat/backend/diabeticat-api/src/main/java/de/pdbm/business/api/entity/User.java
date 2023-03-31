@@ -1,5 +1,8 @@
 package de.pdbm.business.api.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,8 +21,13 @@ public class User {
         private String email;
         private String password;
 
+        @Getter@Setter
         @OneToMany(mappedBy="user")
         private List<Pet> petList;
+
+        @Getter@Setter
+        @OneToMany(mappedBy="user")
+        private List<Sessiontoken> sessiontokenList;
 
         public User() {
 
