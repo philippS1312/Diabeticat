@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import WelcomePage from './pages/WelcomePage.vue'
-import LoginPage from './pages/LoginPage.vue'
-import RegisterPage from './pages/RegisterDialog.vue'
-import HomeScreen from './pages/HomeScreen.vue'
+import WelcomePage from '../pages/WelcomePage.vue'
+import LoginPage from '../pages/LoginPage.vue'
+import RegisterPage from '../pages/RegisterDialog.vue'
+import HomeScreen from '../pages/HomeScreen.vue'
 
 
 const router = createRouter({
