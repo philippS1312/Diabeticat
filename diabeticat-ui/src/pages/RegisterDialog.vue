@@ -78,7 +78,7 @@ function register(){
     .v-card {
         background-color: white;
         width: 500px;
-        height: 450px;
+        height: 600px;
     }
 
     .v-text-field {
@@ -106,14 +106,13 @@ function register(){
     /* Mobile App Design */
     @media screen and (max-width: 600px){
         #welcome-page {
-            background-color: #A5DAD2;
             width: 100%;
             height: 100%;
         }
 
         .v-card {
             width: 80%;
-            height: 80%;
+            height: 85%;
         }
 
         .v-text-field {

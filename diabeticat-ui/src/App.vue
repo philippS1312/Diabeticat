@@ -45,6 +45,10 @@ function test()
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
   }
+  
+  .v-main {
+    background-color: #A5DAD2;
+  }
 
   body {
     margin: 0 auto;
