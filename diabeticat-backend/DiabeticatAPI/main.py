@@ -40,8 +40,8 @@ async def getUserByName(over: Request):
 
 
 
-@app.post("/persistUser")
-async def persistUser(user: Request):
+@app.post("/createUser")
+async def createUser(user: Request):
     req_user = await user.json()
     email=req_user["email"]
     password=req_user["password"]
