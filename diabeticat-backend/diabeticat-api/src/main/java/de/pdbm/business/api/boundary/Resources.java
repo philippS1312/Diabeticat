@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * In this class, REST endpoints are defined.
  */
-@Path("")
+@ApplicationPath("")
 public class Resources {
     @Inject
     UserService userService;
