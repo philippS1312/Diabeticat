@@ -16,13 +16,7 @@ def connectDB():
 
 @app.get("/")
 async def root():
-
-
-
-
-    for x in myresult:
-        print(x)
-    return {"message": x}
+    return {"message": "test"}
 
 
 @app.post("/test")
