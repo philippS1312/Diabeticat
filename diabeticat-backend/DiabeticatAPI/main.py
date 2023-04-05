@@ -25,12 +25,19 @@ async def get_body(over: Request):
     print(req_info["Test"])
     return {"Status":"Okay"}
 
+
 @app.post("/getUserByName")
 async def getUserByName(over: Request):
+    req_user=await over.json()
+    username=req_user["username"]
     mydb=connectDB()
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM User where username ='EinUser1'")
+    mycursor.execute("SELECT * FROM User where username ='"+username+"'")
     myresult = mycursor.fetchall()
+
+    return {"Return":myresult}
+
+
 
 
 @app.post("/persistUser")
