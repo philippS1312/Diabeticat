@@ -38,8 +38,6 @@ async def getUserByName(over: Request):
     return {"Return":myresult}
 
 
-
-
 @app.post("/createUser")
 async def createUser(user: Request):
     req_user = await user.json()
@@ -58,9 +56,6 @@ async def createUser(user: Request):
     print(mycursor.rowcount, "record inserted.")
 
     return {"Succuess":True}
-
-
-
 
 
 
