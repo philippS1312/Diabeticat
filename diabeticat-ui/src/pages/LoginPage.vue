@@ -5,7 +5,6 @@
         <v-card>
 
             <v-img src="../assets/logo-transparent.png" />
-            <h1 class="text-h5">Log-In</h1>
 
             <v-text-field 
                 prepend-inner-icon="mdi-email-outline" 
@@ -31,6 +30,9 @@
                 Login
             </v-btn>
 
+            <br />
+            <router-link class="back_link" to="/">Kein Account? Zurück</router-link>
+
         </v-card>
 
     </div>
@@ -46,7 +48,6 @@
     const showPassword = ref(false);
 
     function login() {
-        console.log('Welcome!')
         router.push('/Home')
     }
 
@@ -55,7 +56,7 @@
 <style scoped>
 
     * {
-        margin: auto;
+        margin: auto;   
     }
 
     #welcome-page {
@@ -83,10 +84,15 @@
     
     .v-btn {
         width: 200px;
+        margin-bottom: 10px;
     }
 
     .text-h5 {
         margin-bottom: 15px;
+    }
+
+    .back_link {
+        font-size: small;
     }
 
     p {
