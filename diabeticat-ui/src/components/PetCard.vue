@@ -17,7 +17,7 @@
           </p>        
       </v-card-subtitle>
       <v-card-actions>
-        <v-btn size="small" variant="flat" @click="router.push('/Messure')">Messung durchführen</v-btn>
+        <v-btn id="messure" size="small" variant="flat" @click="router.push('/Messure')">Messung durchführen</v-btn>
         <v-spacer></v-spacer>
         <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-btn>
       </v-card-actions>
@@ -57,10 +57,13 @@ console.log(pet)
 <style scoped>
 .PetCard {
   margin: 5%;
-
 }
 #birthday {
   font-weight: bolder;
   font-size: 1, 4em;
+}
+#messure{
+  background-color: rgb(80, 33, 33);
+  color: white;
 }
 </style>
