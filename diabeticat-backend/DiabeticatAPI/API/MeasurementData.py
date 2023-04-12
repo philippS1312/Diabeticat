@@ -29,9 +29,9 @@ async def insertData(input: Request):
             return {"Succuess": True}
 
         else:
-            raise HTTPException(status_code=404, detail="petid was not found")
+            raise HTTPException(status_code=404, detail="One or more Key(s) was not found")
     else:
-        raise HTTPException(status_code=404, detail="Key 'petid' does not exist or was not found")
+        raise HTTPException(status_code=404, detail="One or more Key(s) do not exist or was not found")
 
 
 
