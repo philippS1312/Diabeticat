@@ -46,6 +46,10 @@ function test()
     text-align: center;
   }
 
+  .v-main {
+    background-color: #A5DAD2;
+  }
+
   body {
     margin: 0 auto;
   }
