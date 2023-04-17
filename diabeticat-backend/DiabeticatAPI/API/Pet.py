@@ -21,7 +21,7 @@ async def createPet(pet: Request):
     name = req_pet["name"]
     type = req_pet["type"]
     birthday = req_pet["birthday"]
-    userid = req_pet["userid"]
+    userid = req_pet["userId"]
 
     mydb=connectDB()
     mycursor = mydb.cursor()
@@ -38,7 +38,7 @@ async def createPet(pet: Request):
 @pet_router.post("/deletePet")
 async def deletePet(pet: Request):
     req_pet = await pet.json()
-    petid = req_pet["id"]
+    petid = str(req_pet["id"])
 
     mydb=connectDB()
     mycursor = mydb.cursor()
