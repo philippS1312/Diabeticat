@@ -78,8 +78,8 @@ async def deletePet(input: Request):
         else:
             raise HTTPException(status_code=404, detail="Access token is broken!")
 
-    if "id" in req:
-        petid = str(req["id"])
+    if "petid" in req:
+        petid = str(req["petid"])
         mydb=connectDB()
         mycursor = mydb.cursor()
 
