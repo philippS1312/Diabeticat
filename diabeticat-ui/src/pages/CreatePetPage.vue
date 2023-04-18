@@ -1,0 +1,120 @@
+<template>
+    <div id="create_page">
+
+        <v-card>
+
+            <!-- Button Back -->
+            <v-btn 
+                id="back" 
+                icon="mdi-arrow-left"
+                color="grey-lighten-2"
+                @click="router.push('/Home')">
+            </v-btn>
+
+            <v-img src="../assets/logo-transparent.png" />
+
+            <h1>Haustier anlegen</h1>
+
+            <v-form>
+
+                <!-- Name -->
+                <v-text-field 
+                    v-model="name"
+                    label="Name"
+                />
+
+                <!-- Art -->
+                <v-select
+                v-model="type"
+                    label="Art"
+                    :items="types"
+                    required />
+
+                <!-- Geburtsdatum -->
+                <label class="birthday">Geburtsdatum</label>
+                <VueDatePicker 
+                    v-model="date"
+                    class="datepicker"
+                ></VueDatePicker>
+
+                <!-- Button Anlegen -->
+                <v-btn
+                    color="success"
+                    class="button_create"
+                    @click="create()"
+                >
+                Anlegen
+                </v-btn>
+
+            </v-form>
+        
+        </v-card>
+
+    </div>
+</template>
+
+<script setup>
+
+    import { ref } from 'vue'
+    import VueDatePicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css'
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter(); 
+    const types = ['Katze', 'Hund', 'Krokodil']
+
+    let name = ref();
+    let type = ref();
+    let date = ref();
+
+    function create() {
+        console.log("Anlegen: " + name.value + ", " + type.value + ", " + date.value);
+    }
+
+</script>
+
+
+<style scoped>
+    
+    * {
+        margin: auto;
+    }
+
+    #back{
+        position: absolute;
+        margin-left: -45%;
+        margin-top: 5%;
+    }
+
+    .v-card {
+        margin: 1em auto;
+        padding: 1em;
+        width: 90%;
+        min-height: 850px;
+    }
+
+    .v-img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+
+    .v-input {
+        width: 80%;
+    }
+
+    .datepicker {
+        width: 80%;
+        z-index: 1;
+        position: relative;
+    }
+
+    .button_create {
+        margin: 10px;
+    }
+
+    /* .birthday {
+        text-align: left;
+    } */
+
+</style>

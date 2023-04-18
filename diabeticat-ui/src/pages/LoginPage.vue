@@ -4,6 +4,14 @@
 
         <v-card>
 
+            <!-- Back Button -->
+            <v-btn 
+                id="back" 
+                icon="mdi-arrow-left"
+                color="orange"
+                @click="router.push('/')">
+            </v-btn>
+
             <v-img src="../assets/logo-transparent.png" />
             <h1 class="text-h5">Log-In</h1>
 
@@ -27,6 +35,7 @@
                 prepend-icon="mdi-account-circle"
                 rounded="lg"
                 color="green"
+                class="login_button"
                 @click="login()">
                 Login
             </v-btn>
@@ -63,6 +72,13 @@
         width: 100%;
         height: 100%;
         padding-top: 150px;
+        width: unset;
+    }
+
+    #back{
+        position: absolute;
+        margin-left: -45%;
+        margin-top: 5%;
     }
 
     .v-card {
@@ -81,7 +97,7 @@
         margin: auto;
     }
     
-    .v-btn {
+    .login_button {
         width: 200px;
     }
 
