@@ -63,7 +63,8 @@ async def createPet(pet: Request):
         mydb.commit()
         print(mycursor.rowcount, "New Pet inserted!")
 
-        return {"Succuess":True}
+        return {"Succuess":True,
+                "Notice":"New Pet inserted!"}
     else:
         raise HTTPException(status_code=404, detail="name, type or birthday not found!")
 
@@ -89,7 +90,8 @@ async def deletePet(input: Request):
         mydb.commit()
         print("Pet sucessfully deleted!")
 
-        return {"Succuess":True}
+        return {"Succuess":True,
+                "Notice":"Pet sucessfully deleted!"}
     else:
         raise HTTPException(status_code=404, detail="Missed PetId!")
 
