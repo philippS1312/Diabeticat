@@ -29,7 +29,7 @@
         </div>
         
         <v-card-action>
-            <v-btn prepend-icon="mdi-plus" @click="store.methods.increasePetcount">Haustier hinzufügen</v-btn>
+            <v-btn prepend-icon="mdi-plus" @click="router.push(`/create`)">Haustier hinzufügen</v-btn>
         </v-card-action>
     </v-card>
 </template>
