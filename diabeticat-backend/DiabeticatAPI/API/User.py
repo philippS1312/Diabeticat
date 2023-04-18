@@ -38,6 +38,9 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
+            if not myresult:
+                raise HTTPException(status_code=404, detail="Username or password is incorrect")
+
             result_list = []
             for row in myresult:
                 result_dict = {}
