@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 import petsData from "../assets/pets.json"
+import apiCall from "../services/apiCall"
 
 
 const state = reactive({
@@ -7,12 +8,14 @@ const state = reactive({
     petCount: 3,
     email: '',
     sessionKey: '',
-    pets: petsData.pets,
+    //pets: petsData.pets,
+    pets: apiCall.requests.getPets.pets,
 });
 
 const methods = {
     increasePetcount(){
         state.petCount++
+
     },
     getName(){
         return state.username

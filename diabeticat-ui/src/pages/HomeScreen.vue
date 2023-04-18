@@ -35,14 +35,21 @@
 </template>
 
 <script setup>
-    import store from "../store/index.js"
-    import { watch } from "vue"
+    import store from "../store/index.js";
     import { useRouter } from 'vue-router';
+    import { onMounted } from 'vue';
+    import axios from 'axios'
     const router = useRouter();
 
-    
-    watch()
+    onMounted(() => {
+        axios
+        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+        .then(response => console.log(response))
+    })
 
+    
+
+    
 </script>
 
 <style scoped>
