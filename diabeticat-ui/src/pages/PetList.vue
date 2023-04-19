@@ -1,14 +1,14 @@
 <template>
-    <v-card class="PetCard" v-for="pet in store.state.pets" :key="pet.ID">
-        <v-card @click="router.push(`/PetCard/${pet.ID}`)">
+    <v-card class="PetCard" v-for="pet in store.state.pets" :key="pet.petid">
+        <v-card @click="router.push(`/PetCard/${pet.id}`)">
             <v-avatar :color="store.methods.getRandomColor()">
-                <span class="text-h5">{{ store.methods.getInitials(pet.Name) }}</span>
+                <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>
             </v-avatar>
-            <v-card-title>{{ pet.Name }}</v-card-title>
+            <v-card-title>{{ pet.name }}</v-card-title>
             <v-card-text v-if="true">
-                <p>Art: {{ pet.Art }}</p>
-                <p>Geburtsdatum: {{ pet.Geburtsdatum }}</p>
-                <p>Notizen: {{ pet.Notizen }}</p>
+                <p>Art: {{ pet.type }}</p>
+                <p>Geburtsdatum: {{ pet.birthday }}</p>
+                <!-- <p>Notizen: {{ pet.Notizen }}</p> -->
             </v-card-text>
         </v-card>
     </v-card>

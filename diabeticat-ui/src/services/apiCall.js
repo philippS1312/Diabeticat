@@ -23,6 +23,27 @@ const requests = {
       return response;
     },
 
+    createPet(token, name, type, birthday) {
+      const response = axios.post('http://127.0.0.1:8000/createPet', {
+          access_token: token,
+          name: name,
+          type: type,
+          birthday: birthday  
+        }
+      )
+
+      return response;
+    },
+
+    getPetsByUser(token) {
+      const response = axios.post('http://127.0.0.1:8000/getPetsByUser', {
+          access_token: token
+        }
+      )
+
+      return response;
+    },
+
     getPets(){
         return{
             "pets": [

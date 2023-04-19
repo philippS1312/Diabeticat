@@ -59,6 +59,8 @@
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css'
     import { useRouter } from 'vue-router';
+    import store from "../store/index.js"
+    import apiCall from "../services/apiCall"
 
     const router = useRouter(); 
     const types = ['Katze', 'Hund', 'Krokodil']
@@ -67,8 +69,24 @@
     let type = ref();
     let date = ref();
 
-    function create() {
-        console.log("Anlegen: " + name.value + ", " + type.value + ", " + date.value);
+    async function create() {
+        try {
+            const response_create = await apiCall.requests.createPet(store.state.sessionKey, name.value, type.value, date.value);
+
+            if (response_create.status == 200) {
+                
+                // Update store
+                const pets_response = await apiCall.requests.getPetsByUser(store.state.sessionKey);
+                store.methods.setUserPets(pets_response.data)
+
+                router.push('/home');
+            } else {
+                console.log('Create Pet failed: ' + response_create.statusText)
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 </script>
