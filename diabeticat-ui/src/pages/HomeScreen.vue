@@ -13,15 +13,15 @@
         </v-card-text>
         <div class="text-center">
             <v-slide-group>
-                <v-slide-group-item v-for="pet in store.state.pets" :key="pet.ID">
-                    <v-card @click="router.push(`/PetCard/${pet.ID}`)">
+                <v-slide-group-item v-for="pet in store.state.pets" :key="pet.petid">
+                    <v-card @click="router.push(`/PetCard/${pet.petid}`)">
                         <v-avatar :color="store.methods.getRandomColor()">
-                            <span class="text-h5">{{ store.methods.getInitials(pet.Name) }}</span>
+                            <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>
                         </v-avatar>
-                        <v-card-title>{{ pet.Name }}</v-card-title>
+                        <v-card-title>{{ pet.name }}</v-card-title>
                         <v-card-text v-if="true">
-                            <p>{{ pet.Art }}</p>
-                            <p>{{ pet.Geburtsdatum }}</p>
+                            <p>{{ pet.type }}</p>
+                            <p>{{ pet.birthday }}</p>
                         </v-card-text>
                     </v-card> 
                 </v-slide-group-item>
@@ -35,21 +35,17 @@
 </template>
 
 <script setup>
+    
     import store from "../store/index.js";
     import { useRouter } from 'vue-router';
     import { onMounted } from 'vue';
-    import axios from 'axios'
+
     const router = useRouter();
 
     onMounted(() => {
-        axios
-        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then(response => console.log(response))
+        // console.log(JSON.parse(JSON.stringify(store.state.pets)))
     })
 
-    
-
-    
 </script>
 
 <style scoped>

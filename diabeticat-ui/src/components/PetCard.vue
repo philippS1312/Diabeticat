@@ -5,15 +5,15 @@
       <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px" cover></v-img>
 
       <v-card-title>
-        {{ pet.Name }}
+        {{ pet.name }}
       </v-card-title>
 
       <v-card-subtitle>
-          <p>{{ pet.Art }}</p>
+          <p>{{ pet.type }}</p>
         <br>
           <p id="birthday">
             <v-icon icon="mdi-cake-variant"></v-icon>
-            {{ pet.Geburtsdatum }}
+            {{ pet.birthday }}
           </p>        
       </v-card-subtitle>
       <v-card-actions>
@@ -22,7 +22,7 @@
         <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-btn>
       </v-card-actions>
     </div>
-    <v-expand-transition>
+    <!-- <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
 
@@ -32,7 +32,7 @@
         <v-card>Platz für die letzten Messungen</v-card>
         <v-card>Platz für die Statistiken</v-card>
       </div>
-    </v-expand-transition>
+    </v-expand-transition> -->
   </v-card>
 </template>
 

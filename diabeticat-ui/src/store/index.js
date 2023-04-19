@@ -1,15 +1,12 @@
 import { reactive } from 'vue';
-// import petsData from "../assets/pets.json"
-import apiCall from "../services/apiCall"
-
 
 const state = reactive({
-    username: 'Testuser',
-    petCount: 3,
-    email: '',
     sessionKey: '',
-    //pets: petsData.pets,
-    pets: apiCall.requests.getPets.pets,
+    userID: null,
+    username: '',
+    email: '',
+    petCount: 0,
+    pets: [],
 });
 
 const methods = {
@@ -28,7 +25,23 @@ const methods = {
         const green = Math.floor(Math.random() * 256);
         const blue = Math.floor(Math.random() * 256);
         return `rgb(${red}, ${green}, ${blue})`;
-    }
+    },
+    setUserToken(token) {
+        state.sessionKey = token;
+    },
+    setUserId(id) {
+        state.userID = id;
+    },
+    setUserEmail(email) {
+        state.email = email;
+    },
+    setUserName(username) {
+        state.username = username;
+    },
+    setUserPets(pets) {
+        state.pets = pets;
+    },
+
 }
 
 export default {
