@@ -11,6 +11,7 @@
             <h1 class="text-h5">Register</h1>
 
             <v-text-field 
+                v-model="email"
                 prepend-inner-icon="mdi-email-outline" 
                 clearable 
                 label="Email"
@@ -18,6 +19,7 @@
                 variant="outlined"/>
 
             <v-text-field 
+                v-model="username"
                 prepend-inner-icon="mdi-account-outline" 
                 clearable 
                 label="Dein Name"
@@ -25,6 +27,7 @@
                 variant="outlined"/>
 
             <v-text-field 
+                v-model="password"
                 prepend-inner-icon="mdi-lock-outline" 
                 clearable 
                 label="Passwort"
@@ -55,17 +58,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
+    import { ref } from 'vue'
+    import { useRouter } from 'vue-router';
+    import apiCall from "../services/apiCall"
 
-const showPassword = ref(false);
+    const router = useRouter();
+    const showPassword = ref(false);
 
-function register(){
-    console.log('Register!')
-    router.push('/Home')
-}
+    let email = ref();
+    let username = ref();
+    let password = ref();
+
+    async function register(){
+        try {
+            const response = await apiCall.requests.register(password.value, email.value, username.value);
+
+            if (response.status == 200) {
+                router.push('/login');
+            } else {
+                console.log('Register failed: ' + response.statusText)
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 </script>
 
