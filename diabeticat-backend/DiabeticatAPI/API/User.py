@@ -40,7 +40,8 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
 
             if not myresult:
                 return {"Succuess":False,
-                        "Notice":"Username or Password false"}
+                        "statuscode":400,
+                        "Notice":"Wrong Credentials"}
 
             result_list = []
             for row in myresult:
@@ -57,11 +58,15 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
             userId = returnJson["userId"]
 
             access_token = Authorize.create_access_token(subject=userId, expires_time=timedelta(hours=24))
-            return {"access_token": access_token, "payload": returnJson}
+            return {"access_token": access_token, "payload": returnJson, "statuscode":200}
         else:
-            return {"success": False,"notice":"Username or Password Values not found"}
+            return {"success": False,
+                    "statuscode":400,
+                    "notice":"Wrong Credentials"}
     else:
-        return {"success": False,"notice":"Username or Password Keys not found"}
+        return {"success": False,
+                "statuscode":400,
+                "notice":"Wrong Credentials"}
 
 @user_router.post("/test")
 async def login(input: Request):
