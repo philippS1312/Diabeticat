@@ -39,7 +39,8 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
             myresult = mycursor.fetchall()
 
             if not myresult:
-                raise HTTPException(status_code=404, detail="Username or password is incorrect")
+                return {"Succuess":False,
+                        "Notice":"Username or Password false"}
 
             result_list = []
             for row in myresult:
