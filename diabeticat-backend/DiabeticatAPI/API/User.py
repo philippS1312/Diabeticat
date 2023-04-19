@@ -59,9 +59,9 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
             access_token = Authorize.create_access_token(subject=userId, expires_time=timedelta(hours=24))
             return {"access_token": access_token, "payload": returnJson}
         else:
-            raise HTTPException(status_code=404, detail="Username or Password Values not found")
+            return {"success": False,"notice":"Username or Password Values not found"}
     else:
-        raise HTTPException(status_code=404, detail="Username or Password Keys not found")
+        return {"success": False,"notice":"Username or Password Keys not found"}
 
 @user_router.post("/test")
 async def login(input: Request):
