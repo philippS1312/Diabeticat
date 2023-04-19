@@ -16,13 +16,14 @@
             <h1 class="text-h5">Log-In</h1>
 
             <v-text-field 
+                v-model="username"
                 prepend-inner-icon="mdi-email-outline" 
                 clearable 
-                label="Email"
-                placeholder="user@example.com" 
+                label="Username"
                 variant="outlined"/>
 
             <v-text-field 
+                v-model="password"
                 prepend-inner-icon="mdi-lock-outline" 
                 clearable 
                 label="Password"
@@ -49,15 +50,28 @@
 <script setup>
     import { ref } from 'vue'
     import { useRouter } from 'vue-router';
+    import apiCall from "../services/apiCall"
 
     const router = useRouter();
-
     const showPassword = ref(false);
 
-    function login() {
-        console.log('Welcome!')
-        router.push('/Home')
-    }
+    let username = ref()
+    let password = ref()
+
+    async function login() {
+        try {
+            const response = await apiCall.requests.login(username.value, password.value);
+
+            if (response.status == 200) {
+                router.push('/home');
+            } else {
+                console.log('Login failed: ' + response.statusText)
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }    
 
 </script>
 

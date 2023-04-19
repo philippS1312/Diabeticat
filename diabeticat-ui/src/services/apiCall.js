@@ -1,10 +1,28 @@
 import axios from 'axios'
 
 const requests = {
-    register(){
-        axios.post('http://127.0.0.1:8000/hallo')
-        
+
+    register(password, email, username){
+      const response = axios.post('http://127.0.0.1:8000/createUser', {
+          password: password,
+          email: email,
+          username: username
+        }
+      )
+      
+      return response;
     },
+
+    login(username, password) {
+      const response = axios.post('http://127.0.0.1:8000/login', {
+          password: password,
+          username: username
+        }
+      )
+
+      return response;
+    },
+
     getPets(){
         return{
             "pets": [

@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import petsData from "../assets/pets.json"
+// import petsData from "../assets/pets.json"
 import apiCall from "../services/apiCall"
 
 
