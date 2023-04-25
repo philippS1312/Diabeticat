@@ -60,7 +60,6 @@
     import '@vuepic/vue-datepicker/dist/main.css'
     import { useRouter } from 'vue-router';
     import store from "../store/index.js"
-    import apiCall from "../services/apiCall"
 
     const router = useRouter(); 
     const types = ['Katze', 'Hund', 'Krokodil']
@@ -71,12 +70,12 @@
 
     async function create() {
         try {
-            const response_create = await apiCall.requests.createPet(store.state.sessionKey, name.value, type.value, date.value);
+            const response_create = await store.apiCall.requests.createPet(store.state.sessionKey, name.value, type.value, date.value);
 
             if (response_create.status == 200) {
                 
                 // Update store
-                const pets_response = await apiCall.requests.getPetsByUser(store.state.sessionKey);
+                const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);
                 store.methods.setUserPets(pets_response.data)
 
                 router.push('/home');
