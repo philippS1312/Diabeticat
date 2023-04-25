@@ -7,6 +7,7 @@ import RegisterPage from '../pages/RegisterDialog.vue'
 import HomeScreen from '../pages/HomeScreen.vue'
 import PetList from '../pages/PetList.vue'
 import PetCard from '../components/PetCard.vue'
+import MeasurementPage from '../pages/MeasurementPage.vue'
 
 
 const router = createRouter({
@@ -19,6 +20,7 @@ const router = createRouter({
       { path: '/create', component: CreatePetPage },
       { path: '/PetCard/:id', component: PetCard },
       { path: '/PetList', component: PetList },
+      { path: '/messung-erfassen', component: MeasurementPage },
       { path: '/:notFound(.*)', component: WelcomePage }
     ]
   });

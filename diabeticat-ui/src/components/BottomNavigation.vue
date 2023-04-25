@@ -6,7 +6,7 @@
       <v-btn height="100%" @click="router.push('/PetList')">
         <v-icon icon="mdi-paw" />
       </v-btn>      
-      <v-btn height="100%" @click="router.push('/')">
+      <v-btn height="100%" @click="router.push('/messung-erfassen')">
         <v-icon icon="mdi-medical-bag" />
       </v-btn>
       <v-btn height="100%" @click="router.push('/')">
