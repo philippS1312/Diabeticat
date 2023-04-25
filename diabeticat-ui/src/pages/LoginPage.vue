@@ -61,9 +61,12 @@
     async function login() {
         try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             // const response = await apiCall.requests.login(username.value, password.value);
 >>>>>>> b10430d (Small fixes and improvements)
+=======
+>>>>>>> 6ad2335 (Small fixup)
             const response = await store.apiCall.requests.login(username.value, password.value);
 
             if (response.status == 200) {
