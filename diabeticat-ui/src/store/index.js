@@ -1,4 +1,5 @@
 import { reactive } from 'vue';
+import apiCall from "../services/apiCall"
 
 const state = reactive({
     sessionKey: '',
@@ -47,4 +48,5 @@ const methods = {
 export default {
     state,
     methods,
+    apiCall
 };

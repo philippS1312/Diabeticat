@@ -101,7 +101,6 @@
         margin: 1em auto;
         padding: 1em;
         width: 90%;
-        min-height: 850px;
     }
 
     .v-img {
@@ -123,9 +122,5 @@
     .button_create {
         margin: 10px;
     }
-
-    /* .birthday {
-        text-align: left;
-    } */
 
 </style>
