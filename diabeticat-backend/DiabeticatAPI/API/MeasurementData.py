@@ -1,3 +1,4 @@
+import jwt
 from fastapi import APIRouter, Request, HTTPException
 from datetime import datetime
 import json
@@ -6,8 +7,19 @@ import mysql.connector
 
 measurementData_router = APIRouter()
 
+secret_key: str = "ßf134gr08123r0r01r+312ag23ß9dscda4114gvf43dßkß431r"
+
+def protected(token):
+    try:
+        var = jwt.decode(token, secret_key, algorithms="HS256")
+        return var
+    except jwt.exceptions.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+
 @measurementData_router.post('/insertMeasurementData')
 async def insertData(input: Request):
+    global TokenUserId
     req = await input.json()
     mydb = connectDB()
     if "petid" in req and "bloodSugar" in req and "insulinDose" in req:
@@ -18,16 +30,30 @@ async def insertData(input: Request):
             insulinDose = req["insulinDose"]
 
             mycursor = mydb.cursor()
+            sqlGet = "SELECT pet.userId FROM Pet WHERE petId='" + petid + "'"
+            col_names = [col[0] for col in mycursor.description]
+            myresult = mycursor.fetchall()
+            PetUserId = myresult[0]
 
-            sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose) VALUES (%s, %s, %s)"
-            val = (petid, bloodSugar, insulinDose)
-            mycursor.execute(sql, val)
+            if "access_token" in req:
+                token = protected(req["access_token"])
+                if "sub" in token:
+                    TokenUserId = str(token["sub"])
+                else:
+                    raise HTTPException(status_code=404, detail="Access token is broken!")
 
-            mydb.commit()
-            print(mycursor.rowcount, "New Pet inserted!")
+            if TokenUserId == PetUserId:
+                mycursor = mydb.cursor()
+                sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose) VALUES (%s, %s, %s)"
+                val = (petid, bloodSugar, insulinDose)
+                mycursor.execute(sql, val)
 
-            return {"Succuess": True}
+                mydb.commit()
+                print(mycursor.rowcount, "New Pet inserted!")
 
+                return {"Succuess": True}
+            else:
+                raise HTTPException(status_code=404, detail="Invalid Access token!")
         else:
             raise HTTPException(status_code=404, detail="One or more Key(s) was not found")
     else:
@@ -38,13 +64,22 @@ async def insertData(input: Request):
 
 @measurementData_router.post('/getMeasurementDataByPet')
 async def getDataByPet(input: Request):
+    global userid
     req = await input.json()
-    mydb= connectDB()
-    if "petid" in req :
+    mydb = connectDB()
+
+    if "access_token" in req:
+        token = protected(req["access_token"])
+        if "sub" in token:
+            userid = token["sub"]
+        else:
+            raise HTTPException(status_code=404, detail="Access token is broken!")
+
+    if "petid" in req and userid != 0:
         if req["petid"] is not None:
             petid = str(req["petid"])
             mycursor = mydb.cursor()
-            mycursor.execute("SELECT * FROM MeasurementData Where petId ='" + petid + "'")
+            mycursor.execute("SELECT * FROM MeasurementData Where petId ='" + petid + "' AND pet.userId='" + userid + "'")
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
@@ -61,9 +96,9 @@ async def getDataByPet(input: Request):
 
             return returnJson
         else:
-            raise HTTPException(status_code=404, detail="petid was not found")
+            raise HTTPException(status_code=404, detail="Petid was not found!")
     else:
-        raise HTTPException(status_code=404, detail="Key 'petid' does not exist or was not found")
+        raise HTTPException(status_code=404, detail="Key 'petid' does not exist or was not found or Access token is invalid!")
 
 
 
