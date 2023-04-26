@@ -111,8 +111,8 @@ def handle_datetime(obj):
 def connectDB():
     mydb = mysql.connector.connect(
         host="sql7.freemysqlhosting.net",
-        user="sql7609007",
-        password="xSVyvqUxhW",
-        database="sql7609007"
+        user="sql7614321",
+        password="6QcZvqkwMb",
+        database="sql7614321"
     )
     return mydb

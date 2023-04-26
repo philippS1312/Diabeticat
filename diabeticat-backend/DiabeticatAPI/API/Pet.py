@@ -15,9 +15,9 @@ secret_key: str = "ßf134gr08123r0r01r+312ag23ß9dscda4114gvf43dßkß431r"
 def connectDB():
     mydb = mysql.connector.connect(
         host="sql7.freemysqlhosting.net",
-        user="sql7609007",
-        password="xSVyvqUxhW",
-        database="sql7609007"
+        user="sql7614321",
+        password="sql7614321",
+        database="sql7614321"
     )
     return mydb
 
