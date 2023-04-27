@@ -12,7 +12,6 @@ const state = reactive({
 const methods = {
     increasePetcount(){
         state.petCount++
-
     },
     getName(){
         return state.username
@@ -41,7 +40,9 @@ const methods = {
     setUserPets(pets) {
         state.pets = pets;
     },
-
+    userIsLoggedIn() {
+        return (state.sessionKey != null && state.sessionKey != '')
+    }
 }
 
 export default {

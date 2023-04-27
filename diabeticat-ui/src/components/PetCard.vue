@@ -48,7 +48,7 @@ console.log(route.params.id)
 
 const show = ref(false)
 
-const pet = reactive(store.state.pets.find(pet => pet.ID === parseInt(route.params.id)))
+const pet = reactive(store.state.pets.find(pet => pet.petId === parseInt(route.params.id)))
 
 console.log(pet)
 
