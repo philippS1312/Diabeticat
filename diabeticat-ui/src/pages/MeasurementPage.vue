@@ -20,8 +20,10 @@
                 <!-- Haustier -->
                 <v-select
                     v-model="selectedPet"
-                    label="Haustier auswählen"
                     :items="pets"
+                    item-title ="name"
+                    item-value="petId"
+                    label="Haustier auswählen"
                     required />
 
                 <!-- Blutzucker -->
@@ -59,13 +61,18 @@
     import { useRouter } from 'vue-router';
     import store from "../store/index.js"
     import apiCall from "../services/apiCall"
+    import { onMounted } from 'vue';
 
     const router = useRouter(); 
-    const pets = store.state.pets
+    const pets = JSON.parse(JSON.stringify(store.state.pets));
 
     let selectedPet = ref();
     let bloodSugar = ref();
     let insulinDose = ref();
+
+    onMounted(() => {
+        // console.log(pets)
+    });
 
     async function create() {
         try {
