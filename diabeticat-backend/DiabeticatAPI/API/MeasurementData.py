@@ -22,38 +22,47 @@ async def insertData(input: Request):
     global TokenUserId
     req = await input.json()
     mydb = connectDB()
-    if "petid" in req and "bloodSugar" in req and "insulinDose" in req:
-        if req["petid"] is not None and req["bloodSugar"] is not None and req["insulinDose"] is not None:
+    if "petid" in req and "bloodSugar" in req and "insulinDose" in req and "access_token" in req:
+        if req["petid"] != 0 and req["bloodSugar"] != 0 and req["insulinDose"] != 0 and "access_token" != None:
 
-            petid  = req["petid"]
+            petId = req["petid"]
+
             bloodSugar = req["bloodSugar"]
             insulinDose = req["insulinDose"]
 
             mycursor = mydb.cursor()
-            sqlGet = "SELECT pet.userId FROM Pet WHERE petId='" + petid + "'"
-            col_names = [col[0] for col in mycursor.description]
-            myresult = mycursor.fetchall()
-            PetUserId = myresult[0]
 
-            if "access_token" in req:
-                token = protected(req["access_token"])
-                if "sub" in token:
-                    TokenUserId = str(token["sub"])
+            sqlGet = "SELECT Pet.userId FROM Pet WHERE petId='" + str(petId) + "'"
+            mycursor.execute(sqlGet)
+
+            if mycursor.with_rows:
+                rows = mycursor.fetchall()
+
+                if "access_token" in req:
+                    print("Access Token found")
+                    token = protected(req["access_token"])
+                    if "sub" in token:
+                        TokenUserId = str(token["sub"])
+                    else:
+                        raise HTTPException(status_code=404, detail="Access token is broken!")
+                    print("Access Token ID:" + str(TokenUserId))
+                    petUserId = rows[0][0]
+                    print("PetUserId:" + str(petUserId))
+                    print("result:" + str(int(TokenUserId) == int(petUserId)))
+                    if int(TokenUserId) == int(petUserId):
+                        print("TokenId = userId")
+                        mycursor2 = mydb.cursor()
+                        sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose) VALUES (%s, %s, %s)"
+                        val = (petId, bloodSugar, insulinDose)
+                        mycursor2.execute(sql, val)
+
+                        mydb.commit()
+                        print(mycursor.rowcount, "New MeasurementData inserted!")
+                        return {"Succuess": True}
                 else:
-                    raise HTTPException(status_code=404, detail="Access token is broken!")
-
-            if TokenUserId == PetUserId:
-                mycursor = mydb.cursor()
-                sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose) VALUES (%s, %s, %s)"
-                val = (petid, bloodSugar, insulinDose)
-                mycursor.execute(sql, val)
-
-                mydb.commit()
-                print(mycursor.rowcount, "New Pet inserted!")
-
-                return {"Succuess": True}
+                    raise HTTPException(status_code=404, detail="Invalid Access token!")
             else:
-                raise HTTPException(status_code=404, detail="Invalid Access token!")
+                raise HTTPException(status_code=404, detail="Pet not found.")
         else:
             raise HTTPException(status_code=404, detail="One or more Key(s) was not found")
     else:
