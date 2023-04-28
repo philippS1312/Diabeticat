@@ -83,12 +83,14 @@ async def getDataByPet(input: Request):
             userid = token["sub"]
         else:
             raise HTTPException(status_code=404, detail="Access token is broken!")
+    else:
+        raise HTTPException(status_code=404, detail="Access token is missing!")
 
     if "petid" in req and userid != 0:
         if req["petid"] is not None:
-            petid = str(req["petid"])
+            petid = req["petid"]
             mycursor = mydb.cursor()
-            mycursor.execute("SELECT * FROM MeasurementData Where petId ='" + petid + "' AND pet.userId='" + userid + "'")
+            mycursor.execute("SELECT * FROM MeasurementData JOIN Pet ON Pet.petId=MeasurementData.petId Where Pet.petId ='" + str(petid) + "' AND Pet.userId='" + str(userid) + "'")
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
