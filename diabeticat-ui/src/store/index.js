@@ -2,19 +2,15 @@ import { reactive } from 'vue';
 import apiCall from "../services/apiCall"
 
 const state = reactive({
-    sessionKey: '',
+    sessionKey: null,
     userID: null,
-    username: '',
-    email: '',
-    petCount: 0,
+    username: null,
+    email: null,
+    petCount: null,
     pets: [],
 });
 
 const methods = {
-    increasePetcount(){
-        state.petCount++
-
-    },
     getName(){
         return state.username
     },
@@ -42,7 +38,9 @@ const methods = {
     setUserPets(pets) {
         state.pets = pets;
     },
-
+    setPetCount() {
+        state.petCount = state.pets.length;
+    }
 }
 
 export default {

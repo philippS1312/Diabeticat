@@ -63,13 +63,18 @@
             const response = await store.apiCall.requests.login(username.value, password.value);
 
             if (response.status == 200) {
+                // Set user informations in store
                 store.methods.setUserToken(response.data['access_token']);
                 store.methods.setUserId(response.data['payload']['userId']);
                 store.methods.setUserEmail(response.data['payload']['email']);
                 store.methods.setUserName(response.data['payload']['username']);
 
+                // Get pets for user
                 const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);
                 store.methods.setUserPets(pets_response.data);
+
+                // Set petCount
+                store.methods.setPetCount();
 
                 router.push('/home');
             } else {
