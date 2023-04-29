@@ -15,9 +15,9 @@ secret_key: str = "ßf134gr08123r0r01r+312ag23ß9dscda4114gvf43dßkß431r"
 def connectDB():
     mydb = mysql.connector.connect(
         host="sql7.freemysqlhosting.net",
-        user="sql7609007",
-        password="xSVyvqUxhW",
-        database="sql7609007"
+        user="sql7614321",
+        password="6QcZvqkwMb",
+        database="sql7614321"
     )
     return mydb
 
@@ -98,7 +98,7 @@ async def deletePet(input: Request):
 @pet_router.post('/getPetsByUser')
 async def getPetsByUser(input: Request):
     req = await input.json()
-    mydb= connectDB()
+    mydb = connectDB()
 
     if "access_token" in req:
         token = protected(req["access_token"])
