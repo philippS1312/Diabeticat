@@ -2,5 +2,6 @@
   "appId": "com.example.app",
   "appName": "Diabeticat",
   "webDir": "dist",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": false,
+  "icon": "./src/assets/logo.png"
 }
