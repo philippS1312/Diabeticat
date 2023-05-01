@@ -3,5 +3,9 @@
   "appName": "Diabeticat",
   "webDir": "dist",
   "bundledWebRuntime": false,
-  "icon": "./src/assets/logo.png"
+  "app": {
+    "name": "Ihr-App-Name",
+    "version": "1.0.0",
+    "icon": "src/assets/logo-neu.png"
+  }
 }
