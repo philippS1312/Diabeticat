@@ -130,4 +130,14 @@
         margin: 10px;
     }
 
+    /* Mobile App Design */
+    @media screen and (max-width: 600px){
+
+        .v-card {
+            height: auto;
+            padding-bottom: 25px;
+        }
+
+    }
+
 </style>

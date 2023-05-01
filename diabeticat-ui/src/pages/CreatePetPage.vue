@@ -132,8 +132,14 @@
         margin: 10px;
     }
 
-    /* .birthday {
-        text-align: left;
-    } */
+    /* Mobile App Design */
+    @media screen and (max-width: 600px){
+
+        .v-card {
+            height: auto;
+            padding-bottom: 25px;
+        }
+
+    }
 
 </style>

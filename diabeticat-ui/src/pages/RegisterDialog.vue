@@ -140,6 +140,8 @@
         .v-card {
             width: 80%;
             height: 85%;
+            height: auto;
+            padding-bottom: 25px;
         }
 
         .v-text-field {
