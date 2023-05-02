@@ -4,6 +4,7 @@ import json
 import mysql.connector
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
+from jwt import InvalidTokenError
 from pydantic import BaseModel
 from datetime import timedelta
 
@@ -22,6 +23,59 @@ AuthJWT.load_config(get_config)
 class User(BaseModel):
     username: str
     password: str
+
+@user_router.post("/checkSession")
+async def checkSession(input: Request):
+
+    req = await input.json()
+    mydb = connectDB()
+    if "access_token" in req:
+        try:
+            # Decode the JWT token
+            decoded_token = jwt.decode(req["access_token"], secret_key, algorithms=['HS256'])
+            # If the token is decoded successfully, return True
+            mydb = connectDB()
+            mycursor = mydb.cursor()
+
+            token = protected(req["access_token"])
+            if "sub" in token:
+                userId = str(token["sub"])
+            else:
+                return {"Succuess": False,
+                        "statuscode": 400,
+                        "Notice": "Invalid Access Token!"}
+
+            mycursor.execute("SELECT * FROM User where userId ='" + userId + "'")
+            col_names = [col[0] for col in mycursor.description]
+            myresult = mycursor.fetchall()
+
+            if not myresult:
+                return {"Succuess": False,
+                        "statuscode": 400,
+                        "Notice": "Wrong Credentials"}
+
+            result_list = []
+            for row in myresult:
+                result_dict = {}
+                for i in range(len(col_names)):
+                    if (i != 2):
+                        result_dict[col_names[i]] = row[i]
+                result_list.append(result_dict)
+
+            result_json = json.dumps(result_list)[1:-1]
+            StringJson = str(result_json)
+            returnJson = json.loads(StringJson)
+
+            return returnJson
+
+        except InvalidTokenError:
+            # If the token is invalid or has expired, return False
+            return {"Succuess": False,
+                    "statuscode": 400,
+                    "Notice": "Invalid Access Token!"}
+    else:
+        raise HTTPException(status_code=401,
+                            detail="At least one of the following request parameters is missing: 'access_token'")
 
 @user_router.post("/login")
 async def login(input: Request, Authorize: AuthJWT = Depends()):
@@ -64,9 +118,7 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
                     "statuscode":400,
                     "notice":"Wrong Credentials"}
     else:
-        return {"success": False,
-                "statuscode":400,
-                "notice":"Wrong Credentials"}
+        raise HTTPException(status_code=401, detail="At least one of the following request parameters is missing: 'username', 'password'")
 
 @user_router.post("/test")
 async def login(input: Request):
