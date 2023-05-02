@@ -14,7 +14,9 @@ def protected(token):
         var = jwt.decode(token, secret_key, algorithms="HS256")
         return var
     except jwt.exceptions.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        return {"success": False,
+                "statuscode": 400,
+                "notice": "Invalid Access Token"}
 
 
 @measurementData_router.post('/api/insertMeasurementData')
@@ -44,7 +46,9 @@ async def insertData(input: Request):
                     if "sub" in token:
                         TokenUserId = str(token["sub"])
                     else:
-                        raise HTTPException(status_code=404, detail="Access token is broken!")
+                        return {"Succuess": False,
+                                "statuscode": 400,
+                                "Notice": "Invalid Access Token!"}
                     print("Access Token ID:" + str(TokenUserId))
                     petUserId = rows[0][0]
                     print("PetUserId:" + str(petUserId))
@@ -60,13 +64,15 @@ async def insertData(input: Request):
                         print(mycursor.rowcount, "New MeasurementData inserted!")
                         return {"Succuess": True}
                 else:
-                    raise HTTPException(status_code=404, detail="Invalid Access token!")
+                    raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
             else:
-                raise HTTPException(status_code=404, detail="Pet not found.")
+                return {"Succuess": False,
+                        "statuscode": 400,
+                        "Notice": "A pet with this petId does not exist."}
         else:
-            raise HTTPException(status_code=404, detail="One or more Key(s) was not found")
+            raise HTTPException(status_code=422, detail="At least one of the following request parameters values is null: 'access_token', 'petId', 'bloodSugar', 'insulineDose'")
     else:
-        raise HTTPException(status_code=404, detail="One or more Key(s) do not exist or was not found")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token', 'petId', 'bloodSugar', 'insulineDose'")
 
 
 
@@ -82,11 +88,13 @@ async def getDataByPet(input: Request):
         if "sub" in token:
             userid = token["sub"]
         else:
-            raise HTTPException(status_code=404, detail="Access token is broken!")
+            return {"Succuess": False,
+                    "statuscode": 400,
+                    "Notice": "Invalid Access Token!"}
     else:
-        raise HTTPException(status_code=404, detail="Access token is missing!")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
 
-    if "petid" in req and userid != 0:
+    if "petid" in req:
         if req["petid"] is not None:
             petid = req["petid"]
             mycursor = mydb.cursor()
@@ -107,9 +115,9 @@ async def getDataByPet(input: Request):
 
             return returnJson
         else:
-            raise HTTPException(status_code=404, detail="Petid was not found!")
+            raise HTTPException(status_code=422, detail="At least one of the following request parameters values is null: 'petId'")
     else:
-        raise HTTPException(status_code=404, detail="Key 'petid' does not exist or was not found or Access token is invalid!")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'petId'")
 
 
 
