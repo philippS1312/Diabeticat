@@ -107,10 +107,8 @@ async def getPetsByUser(input: Request):
         else:
             raise HTTPException(status_code=404, detail="Access token is broken!")
 
-
-
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM Pet Where userid ='" + userid + "'")
+        mycursor.execute("SELECT petId, name, type, birthday FROM Pet Where userid ='" + userid + "'")
         col_names = [col[0] for col in mycursor.description]
         myresult = mycursor.fetchall()
 

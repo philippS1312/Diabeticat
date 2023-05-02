@@ -90,7 +90,7 @@ async def getDataByPet(input: Request):
         if req["petid"] is not None:
             petid = req["petid"]
             mycursor = mydb.cursor()
-            mycursor.execute("SELECT * FROM MeasurementData JOIN Pet ON Pet.petId=MeasurementData.petId Where Pet.petId ='" + str(petid) + "' AND Pet.userId='" + str(userid) + "'")
+            mycursor.execute("SELECT Pet.petId, measurementDataId, bloodSugar, insulinDose FROM MeasurementData JOIN Pet ON Pet.petId=MeasurementData.petId Where Pet.petId ='" + str(petid) + "' AND Pet.userId='" + str(userid) + "'")
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
