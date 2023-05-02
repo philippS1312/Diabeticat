@@ -24,7 +24,7 @@ class User(BaseModel):
     username: str
     password: str
 
-@user_router.post("/checkSession")
+@user_router.post("/api/checkSession")
 async def checkSession(input: Request):
 
     req = await input.json()
@@ -77,7 +77,7 @@ async def checkSession(input: Request):
         raise HTTPException(status_code=401,
                             detail="At least one of the following request parameters is missing: 'access_token'")
 
-@user_router.post("/login")
+@user_router.post("/api/login")
 async def login(input: Request, Authorize: AuthJWT = Depends()):
 
     req = await input.json()
@@ -120,7 +120,7 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
     else:
         raise HTTPException(status_code=401, detail="At least one of the following request parameters is missing: 'username', 'password'")
 
-@user_router.post("/test")
+@user_router.post("/api/test")
 async def login(input: Request):
     req = await input.json()
     return protected(req["access_token"])
@@ -132,7 +132,7 @@ def protected(token):
     except jwt.exceptions.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-@user_router.post('/createUser')
+@user_router.post('/api/createUser')
 async def createUser(input: Request):
     req = await input.json()
     mydb = connectDB()

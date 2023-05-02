@@ -17,7 +17,7 @@ def protected(token):
         raise HTTPException(status_code=401, detail="Invalid token")
 
 
-@measurementData_router.post('/insertMeasurementData')
+@measurementData_router.post('/api/insertMeasurementData')
 async def insertData(input: Request):
     global TokenUserId
     req = await input.json()
@@ -71,7 +71,7 @@ async def insertData(input: Request):
 
 
 
-@measurementData_router.post('/getMeasurementDataByPet')
+@measurementData_router.post('/api/getMeasurementDataByPet')
 async def getDataByPet(input: Request):
     global userid
     req = await input.json()

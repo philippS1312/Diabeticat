@@ -35,7 +35,7 @@ def handle_datetime(obj):
 
 
 
-@pet_router.post("/createPet")
+@pet_router.post("/api/createPet")
 async def createPet(pet: Request):
     req_pet = await pet.json()
     if "access_token" in req_pet:
@@ -68,7 +68,7 @@ async def createPet(pet: Request):
     else:
         raise HTTPException(status_code=404, detail="name, type or birthday not found!")
 
-@pet_router.post("/deletePet")
+@pet_router.post("/api/deletePet")
 async def deletePet(input: Request):
     req = await input.json()
 
@@ -95,7 +95,7 @@ async def deletePet(input: Request):
     else:
         raise HTTPException(status_code=404, detail="Missed PetId!")
 
-@pet_router.post('/getPetsByUser')
+@pet_router.post('/api/getPetsByUser')
 async def getPetsByUser(input: Request):
     req = await input.json()
     mydb = connectDB()
@@ -126,4 +126,4 @@ async def getPetsByUser(input: Request):
 
         return returnJson
     else:
-        raise HTTPException(status_code=404, detail="access_token was not found")
+        raise HTTPException(status_code=404, detail="access_token parameter was not found")
