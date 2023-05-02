@@ -74,7 +74,7 @@ async def checkSession(input: Request):
                     "statuscode": 400,
                     "Notice": "Invalid Access Token!"}
     else:
-        raise HTTPException(status_code=401,
+        raise HTTPException(status_code=422,
                             detail="At least one of the following request parameters is missing: 'access_token'")
 
 @user_router.post("/api/login")
@@ -118,7 +118,7 @@ async def login(input: Request, Authorize: AuthJWT = Depends()):
                     "statuscode":400,
                     "notice":"Wrong Credentials"}
     else:
-        raise HTTPException(status_code=401, detail="At least one of the following request parameters is missing: 'username', 'password'")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'username', 'password'")
 
 @user_router.post("/api/test")
 async def login(input: Request):
@@ -130,7 +130,9 @@ def protected(token):
         var = jwt.decode(token, secret_key, algorithms="HS256")
         return var
     except jwt.exceptions.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        return {"success": False,
+                "statuscode": 400,
+                "notice": "Invalid Access Token"}
 
 @user_router.post('/api/createUser')
 async def createUser(input: Request):
@@ -152,11 +154,10 @@ async def createUser(input: Request):
             print(mycursor.rowcount, "New User inserted!")
 
             return {"Succuess": True}
-
         else:
-            raise HTTPException(status_code=404, detail="Username, Password or Email Values not found")
+            raise HTTPException(status_code=422, detail="At least one of the following request parameters has a null value: 'username', 'password', 'email'")
     else:
-        raise HTTPException(status_code=404, detail="Email, Username or Password Keys not found")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'username', 'password', 'email'")
 
 
 def connectDB():
