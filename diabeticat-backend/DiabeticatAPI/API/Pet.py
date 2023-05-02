@@ -26,7 +26,9 @@ def protected(token):
         var = jwt.decode(token, secret_key, algorithms="HS256")
         return var
     except jwt.exceptions.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        return {"success": False,
+                "statuscode": 400,
+                "notice": "Invalid Access Token"}
 
 def handle_datetime(obj):
     """Helper function to handle datetime objects during JSON serialization"""
@@ -43,9 +45,11 @@ async def createPet(pet: Request):
         if "sub" in token:
             userid = token["sub"]
         else:
-            raise HTTPException(status_code=404, detail="Access token is broken!")
+            return {"Succuess": False,
+                    "statuscode": 400,
+                    "Notice": "Invalid Access Token!"}
     else:
-        raise HTTPException(status_code=404, detail="No Token found in Request!")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
 
     if "name" in req_pet and "type" in req_pet:
         name = req_pet["name"]
@@ -66,7 +70,7 @@ async def createPet(pet: Request):
         return {"Succuess":True,
                 "Notice":"New Pet inserted!"}
     else:
-        raise HTTPException(status_code=404, detail="name, type or birthday not found!")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'name', 'type'")
 
 @pet_router.post("/api/deletePet")
 async def deletePet(input: Request):
@@ -77,7 +81,9 @@ async def deletePet(input: Request):
         if "sub" in token:
             userId = str(token["sub"])
         else:
-            raise HTTPException(status_code=404, detail="Access token is broken!")
+            return {"Succuess": False,
+                    "statuscode": 400,
+                    "Notice": "Invalid Access Token!"}
 
     if "petid" in req:
         petid = str(req["petid"])
@@ -93,7 +99,7 @@ async def deletePet(input: Request):
         return {"Succuess":True,
                 "Notice":"Pet sucessfully deleted!"}
     else:
-        raise HTTPException(status_code=404, detail="Missed PetId!")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'petId'")
 
 @pet_router.post('/api/getPetsByUser')
 async def getPetsByUser(input: Request):
@@ -105,7 +111,9 @@ async def getPetsByUser(input: Request):
         if "sub" in token:
             userid = str(token["sub"])
         else:
-            raise HTTPException(status_code=404, detail="Access token is broken!")
+            return {"Succuess": False,
+                    "statuscode": 400,
+                    "Notice": "Invalid Access Token!"}
 
         mycursor = mydb.cursor()
         mycursor.execute("SELECT petId, name, type, birthday FROM Pet Where userid ='" + userid + "'")
@@ -126,4 +134,4 @@ async def getPetsByUser(input: Request):
 
         return returnJson
     else:
-        raise HTTPException(status_code=404, detail="access_token parameter was not found")
+        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
