@@ -1,9 +1,8 @@
 import jwt
-from fastapi import APIRouter, Request, FastAPI, Depends, HTTPException
+from fastapi import APIRouter, Request, Depends, HTTPException
 import json
 import mysql.connector
 from fastapi_jwt_auth import AuthJWT
-from fastapi_jwt_auth.exceptions import AuthJWTException
 from jwt import InvalidTokenError
 from pydantic import BaseModel
 from datetime import timedelta
@@ -45,7 +44,7 @@ async def checkSession(input: Request):
                         "statuscode": 400,
                         "Notice": "Invalid Access Token!"}
 
-            mycursor.execute("SELECT * FROM User where userId ='" + userId + "'")
+            mycursor.execute("SELECT userId,username FROM User where userId ='" + userId + "'")
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
@@ -145,15 +144,25 @@ async def createUser(input: Request):
             password = req["password"]
             email = req["email"]
 
-            sql = "INSERT INTO User (username, password, email) VALUES (%s, %s, %s)"
-            val = (username, password, email)
+            #Check if user with this username or mail does already exist
+            sql = "SELECT COUNT(userId) FROM User WHERE username=%s"
+            val = (username,)
             mycursor.execute(sql, val)
+            result = mycursor.fetchone()
+            if result[0] > 0:
+                return {"success": False,
+                        "statuscode": 400,
+                        "notice": "An account with this username or email does already exist!"}
+            else:
+                sql = "INSERT INTO User (username, password, email) VALUES (%s, %s, %s)"
+                val = (username, password, email)
+                mycursor.execute(sql, val)
 
-            mydb.commit()
+                mydb.commit()
 
-            print(mycursor.rowcount, "New User inserted!")
+                print(mycursor.rowcount, "New User inserted!")
 
-            return {"Succuess": True}
+                return {"Succuess": True}
         else:
             raise HTTPException(status_code=422, detail="At least one of the following request parameters has a null value: 'username', 'password', 'email'")
     else:
