@@ -75,7 +75,7 @@
 
                 // Set petCount
                 store.methods.setPetCount();
-
+                
                 router.push('/home');
             } else {
                 console.log('Login failed: ' + response.statusText);

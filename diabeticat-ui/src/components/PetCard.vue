@@ -36,6 +36,7 @@
   const route = useRoute();
   const router = useRouter();
 
+
   const pet = reactive(store.state.pets.find(pet => pet.petId === parseInt(route.params.id)))
 
 </script>

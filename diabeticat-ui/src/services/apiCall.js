@@ -23,6 +23,15 @@ const requests = {
       return response;
     },
 
+    checkSession(token) {
+      const response = axios.post('http://127.0.0.1:8000/checkSession', {
+          access_token: token
+        }
+      )
+
+      return response;
+    },
+
     createPet(token, name, type, birthday) {
       const response = axios.post('http://127.0.0.1:8000/createPet', {
           access_token: token,
@@ -55,7 +64,7 @@ const requests = {
 
       return response;
     },
-
+    
 }
 
 export default {

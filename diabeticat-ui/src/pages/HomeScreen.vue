@@ -53,6 +53,7 @@
     const router = useRouter();
 
     onMounted(() => {
+        //console.log(JSON.parse(JSON.stringify(store.state.pets)))
         // console.log(JSON.parse(JSON.stringify(store.state.pets)))
     });
 

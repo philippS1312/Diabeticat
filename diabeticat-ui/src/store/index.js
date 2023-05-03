@@ -10,6 +10,9 @@ const state = reactive({
     pets: [],
 });
 
+
+
+
 const methods = {
     getName(){
         return state.username
@@ -25,6 +28,7 @@ const methods = {
     },
     setUserToken(token) {
         state.sessionKey = token;
+        localStorage.setItem("token", token)
     },
     setUserId(id) {
         state.userID = id;
