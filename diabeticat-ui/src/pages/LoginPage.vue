@@ -65,7 +65,7 @@
 
             if (response.status == 200) {
                 store.methods.setUserToken(response.data['access_token'])
-                localStorage.setItem('token', response.data['access_token'])
+                //localStorage.setItem('token', response.data['access_token'])
                 store.methods.setUserId(response.data['payload']['userId'])
                 store.methods.setUserEmail(response.data['payload']['email'])
                 store.methods.setUserName(response.data['payload']['username'])

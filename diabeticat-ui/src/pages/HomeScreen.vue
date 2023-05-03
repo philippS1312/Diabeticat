@@ -44,9 +44,9 @@
 
     onMounted(() => {
         //console.log(JSON.parse(JSON.stringify(store.state.pets)))
-        console.log(store.state.sessionKey)
-        console.log(store.methods.userIsLoggedIn())
-        console.log(store.state.pets)
+        //console.log(store.state.sessionKey)
+        //console.log(store.methods.userIsLoggedIn())
+        //console.log(store.state.pets)
     })
 
 </script>

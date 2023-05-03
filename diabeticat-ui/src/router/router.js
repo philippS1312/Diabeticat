@@ -27,17 +27,19 @@ const router = createRouter({
   });
 
   router.beforeEach((to,_,next) => {
-    console.log(store.state.sessionKey)
-    console.log(store.methods.userIsLoggedIn())
+    //console.log(store.state.sessionKey)
+    //console.log(store.methods.userIsLoggedIn())
     
     if(to.meta.requiresAuth && !store.methods.userIsLoggedIn()){
       console.log('beforEach True')
       next('/')
+    }else{
+      console.log('beforEach False')
+      //console.log(to.meta.requiresAuth)
+      //console.log(!store.methods.userIsLoggedIn())
+      next()
     }
-    console.log('beforEach False')
-    console.log(to.meta.requiresAuth)
-    console.log(!store.methods.userIsLoggedIn())
-    next()
+    
   })
   
   export default router;

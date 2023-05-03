@@ -19,10 +19,9 @@
 <script setup>
 
 import NavigationBar from './components/BottomNavigation.vue'
-import { ref } from 'vue'
+import { watch } from 'vue'
 import { useRouter } from 'vue-router';
-
-const toggle = ref(false)
+import store from "./store/index.js"
 
 const router = useRouter();
 
@@ -31,10 +30,16 @@ function showNavBar() {
   return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login' && router.currentRoute.value.fullPath != '/register' 
 }
 
-function test()
-{ 
-  router.push('/C')
+if(localStorage.getItem("token")){
+  store.state.sessionKey = localStorage.getItem("token");
+  console.log("localStorage if: " + store.state.sessionKey)
 }
+
+watch(store.state.sessionKey, (session) => {
+  //localStorage.setItem("sessionStorage", session)
+  console.log("localStorage watch: " + session)
+})
+
 </script>
 
 <style>

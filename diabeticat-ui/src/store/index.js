@@ -9,6 +9,9 @@ const state = reactive({
     pets: [],
 });
 
+
+
+
 const methods = {
     increasePetcount(){
         state.petCount++
@@ -27,6 +30,7 @@ const methods = {
     },
     setUserToken(token) {
         state.sessionKey = token;
+        localStorage.setItem("token", token)
     },
     setUserId(id) {
         state.userID = id;
