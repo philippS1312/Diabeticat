@@ -50,7 +50,6 @@
 <script setup>
     import { ref } from 'vue'
     import { useRouter } from 'vue-router';
-    import apiCall from "../services/apiCall"
     import store from "../store/index.js"
 
     const router = useRouter();
@@ -61,21 +60,25 @@
 
     async function login() {
         try {
-            const response = await apiCall.requests.login(username.value, password.value);
+            const response = await store.apiCall.requests.login(username.value, password.value);
 
             if (response.status == 200) {
-                store.methods.setUserToken(response.data['access_token'])
-                //localStorage.setItem('token', response.data['access_token'])
-                store.methods.setUserId(response.data['payload']['userId'])
-                store.methods.setUserEmail(response.data['payload']['email'])
-                store.methods.setUserName(response.data['payload']['username'])
+                // Set user informations in store
+                store.methods.setUserToken(response.data['access_token']);
+                store.methods.setUserId(response.data['payload']['userId']);
+                store.methods.setUserEmail(response.data['payload']['email']);
+                store.methods.setUserName(response.data['payload']['username']);
 
-                const pets_response = await apiCall.requests.getPetsByUser(store.state.sessionKey);
-                store.methods.setUserPets(pets_response.data)
+                // Get pets for user
+                const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);
+                store.methods.setUserPets(pets_response.data);
+
+                // Set petCount
+                store.methods.setPetCount();
                 
                 router.push('/home');
             } else {
-                console.log('Login failed: ' + response.statusText)
+                console.log('Login failed: ' + response.statusText);
             }
 
         } catch (error) {
@@ -144,6 +147,8 @@
         .v-card {
             width: 80%;
             height: 80%;
+            height: auto;
+            padding-bottom: 25px;
         }
 
         .v-text-field {

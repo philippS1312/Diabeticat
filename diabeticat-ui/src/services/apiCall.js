@@ -51,7 +51,20 @@ const requests = {
       )
 
       return response;
-    }
+    },
+
+    insertMeasurementData(token, petID, bloodSugar, insulinDose) {
+      const response = axios.post('http://127.0.0.1:8000/insertMeasurementData', {
+          access_token: token,
+          petid: petID,
+          bloodSugar: bloodSugar,
+          insulinDose: insulinDose
+        }
+      )
+
+      return response;
+    },
+    
 }
 
 export default {

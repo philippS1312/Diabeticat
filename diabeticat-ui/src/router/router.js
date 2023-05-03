@@ -11,6 +11,7 @@ import MeasurementPage from '../pages/MeasurementPage.vue'
 import store from "../store/index.js"
 
 
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [

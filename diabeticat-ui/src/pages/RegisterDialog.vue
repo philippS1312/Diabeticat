@@ -61,7 +61,7 @@
 
     import { ref } from 'vue'
     import { useRouter } from 'vue-router';
-    import apiCall from "../services/apiCall"
+    import store from "../store/index.js"
 
     const router = useRouter();
     const showPassword = ref(false);
@@ -72,7 +72,7 @@
 
     async function register(){
         try {
-            const response = await apiCall.requests.register(password.value, email.value, username.value);
+            const response = await store.apiCall.requests.register(password.value, email.value, username.value);
 
             if (response.status == 200) {
                 router.push('/login');
@@ -140,6 +140,8 @@
         .v-card {
             width: 80%;
             height: 85%;
+            height: auto;
+            padding-bottom: 25px;
         }
 
         .v-text-field {
