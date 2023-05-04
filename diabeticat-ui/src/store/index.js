@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 import apiCall from "../services/apiCall"
 
+
 const state = reactive({
     sessionKey: null,
     userID: null,
@@ -59,6 +60,9 @@ const methods = {
         const pets_response = await apiCall.requests.getPetsByUser(state.sessionKey);
         methods.setUserPets(pets_response.data);
         methods.setPetCount();
+    },
+    logout(){
+        localStorage.setItem("token", 'expired')
     }
 }
 
