@@ -21,7 +21,7 @@
         <div class="text-center">
             <v-slide-group>
                 <v-slide-group-item v-for="pet in store.state.pets" :key="pet.petId">
-                    <v-card @click="router.push(`/PetCard/${pet.petId}`)">
+                    <v-card @click="router.push(`/Pet/${pet.petId}`)">
 
                         <v-avatar :color="store.methods.getRandomColor()">
                             <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>

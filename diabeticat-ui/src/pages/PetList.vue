@@ -1,6 +1,6 @@
 <template>
     <v-card class="PetCard" v-for="pet in store.state.pets" :key="pet.petId">
-        <v-card @click="router.push(`/PetCard/${pet.petId}`)">
+        <v-card @click="router.push(`/Pet/${pet.petId}`)">
             <v-avatar :color="store.methods.getRandomColor()">
                 <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>
             </v-avatar>
@@ -22,7 +22,8 @@ const router = useRouter();
 
 <style scoped>
 .PetCard{
-    margin: 5%;
+    margin: 1em auto;
+    width: 90%;
 }
 .v-avatar {
     margin-top: 1em;
