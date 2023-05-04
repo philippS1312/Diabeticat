@@ -63,6 +63,16 @@ const requests = {
 
       return response;
     },
+
+    getMeasurementDataByPet(token, petID) {
+      const response = axios.post('http://127.0.0.1:8000/api/getMeasurementDataByPet', {
+          access_token: token,
+          petid: petID,
+        }
+      )
+
+      return response;
+    },
     
 }
 

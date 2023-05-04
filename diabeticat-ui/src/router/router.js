@@ -18,11 +18,12 @@ const router = createRouter({
       { path: '/', component: WelcomePage, meta: { requiresAuth: false }},
       { path: '/login', component: LoginPage, meta: { requiresAuth: false }},
       { path: '/register', component: RegisterPage, meta: { requiresAuth: false }},
-      { path: '/Home', component: HomeScreen, meta: { requiresAuth: true }},
+      { path: '/home', component: HomeScreen, meta: { requiresAuth: true }},
       { path: '/create', component: CreatePetPage, meta: { requiresAuth: true }},
       { path: '/PetCard/:id', component: PetCard, meta: { requiresAuth: true }},
       { path: '/PetList', component: PetList, meta: { requiresAuth: true }},
       { path: '/messung-erfassen', component: MeasurementPage, meta: { requiresAuth: true }},
+      { path: '/messung-erfassen/:id', component: MeasurementPage, meta: { requiresAuth: true }},
       { path: '/:notFound(.*)', component: WelcomePage, meta: { requiresAuth: true }}
     ]
   });
@@ -32,10 +33,10 @@ const router = createRouter({
     //console.log(store.methods.userIsLoggedIn())
     
     if(to.meta.requiresAuth && !store.methods.userIsLoggedIn()){
-      console.log('beforEach True')
+      // console.log('beforEach True')
       next('/')
     }else{
-      console.log('beforEach False')
+      // console.log('beforEach False')
       //console.log(to.meta.requiresAuth)
       //console.log(!store.methods.userIsLoggedIn())
       next()

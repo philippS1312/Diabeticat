@@ -35,7 +35,7 @@ async function checkSession() {
   if(localStorage.getItem("token")){
     response = await store.apiCall.requests.checkSession(localStorage.getItem("token"))
     if (response.status == 200) {
-        console.log('checkSession: ' + response.data['Succuess'])
+        // console.log('checkSession: ' + response.data['Succuess'])
         if(response.data['Succuess'] != false){
                   // Set user informations in store
                   store.methods.setUserToken(localStorage.getItem("token"));
