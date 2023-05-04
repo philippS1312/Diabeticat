@@ -134,6 +134,7 @@
 
   .PetCard {
     margin: 5%;
+    margin-bottom: 1%;
   }
 
   .measurements {
