@@ -17,7 +17,7 @@
       </v-card-subtitle>
 
       <v-card-actions>
-        <v-btn id="messure" size="small" variant="flat" @click="router.push('/messung-erfassen')">Messung durchführen</v-btn>
+        <v-btn id="messure" size="small" variant="flat" @click="router.push(`/messung-erfassen/${pet.petId}`)">Messung durchführen</v-btn>
         <v-spacer></v-spacer>
         <!-- <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-btn> -->
       </v-card-actions>
@@ -38,7 +38,7 @@
             <tr>
               <th class="text-left">ID</th>
               <th class="text-left">Blutzucker</th>
-              <th class="text-left">Insolin Dosis</th>
+              <th class="text-left">Insulin Dosis</th>
             </tr>
           </thead>
           <tbody>

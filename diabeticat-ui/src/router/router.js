@@ -18,11 +18,12 @@ const router = createRouter({
       { path: '/', component: WelcomePage, meta: { requiresAuth: false }},
       { path: '/login', component: LoginPage, meta: { requiresAuth: false }},
       { path: '/register', component: RegisterPage, meta: { requiresAuth: false }},
-      { path: '/Home', component: HomeScreen, meta: { requiresAuth: true }},
+      { path: '/home', component: HomeScreen, meta: { requiresAuth: true }},
       { path: '/create', component: CreatePetPage, meta: { requiresAuth: true }},
       { path: '/PetCard/:id', component: PetCard, meta: { requiresAuth: true }},
       { path: '/PetList', component: PetList, meta: { requiresAuth: true }},
       { path: '/messung-erfassen', component: MeasurementPage, meta: { requiresAuth: true }},
+      { path: '/messung-erfassen/:id', component: MeasurementPage, meta: { requiresAuth: true }},
       { path: '/:notFound(.*)', component: WelcomePage, meta: { requiresAuth: true }}
     ]
   });

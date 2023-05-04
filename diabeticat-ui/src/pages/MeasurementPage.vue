@@ -8,7 +8,7 @@
                 id="back" 
                 icon="mdi-arrow-left"
                 color="grey-lighten-2"
-                @click="router.push('/Home')">
+                @click="router.push('/home')">
             </v-btn>
 
             <v-img src="../assets/logo-transparent.png" />
@@ -58,15 +58,17 @@
 
     import { ref } from 'vue'
     import '@vuepic/vue-datepicker/dist/main.css'
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import store from "../store/index.js"
     import apiCall from "../services/apiCall"
     import { onMounted } from 'vue';
 
+    const route = useRoute();
     const router = useRouter(); 
     const pets = JSON.parse(JSON.stringify(store.state.pets));
+    const providedPetId = parseInt(route.params.id);
 
-    let selectedPet = ref();
+    let selectedPet = ref(providedPetId && !isNaN(providedPetId) ? providedPetId : null);
     let bloodSugar = ref();
     let insulinDose = ref();
 

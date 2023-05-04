@@ -8,7 +8,7 @@
                 id="back" 
                 icon="mdi-arrow-left"
                 color="grey-lighten-2"
-                @click="router.push('/Home')">
+                @click="router.push('/home')">
             </v-btn>
 
             <v-img src="../assets/logo-transparent.png" />
