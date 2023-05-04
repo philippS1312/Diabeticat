@@ -32,10 +32,10 @@ const router = createRouter({
     //console.log(store.methods.userIsLoggedIn())
     
     if(to.meta.requiresAuth && !store.methods.userIsLoggedIn()){
-      console.log('beforEach True')
+      // console.log('beforEach True')
       next('/')
     }else{
-      console.log('beforEach False')
+      // console.log('beforEach False')
       //console.log(to.meta.requiresAuth)
       //console.log(!store.methods.userIsLoggedIn())
       next()
