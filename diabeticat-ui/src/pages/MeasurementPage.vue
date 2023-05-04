@@ -32,10 +32,10 @@
                     label="Blutzucker"
                 />
 
-                <!-- Insolin Dosis -->
+                <!-- Insulin Dosis -->
                 <v-text-field 
                     v-model="insulinDose"
-                    label="Insolin Dosis"
+                    label="Insulin Dosis"
                 />
 
                 <!-- Button Anlegen -->
