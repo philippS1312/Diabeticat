@@ -3,7 +3,7 @@ import axios from 'axios'
 const requests = {
 
     register(password, email, username){
-      const response = axios.post('http://127.0.0.1:8000/createUser', {
+      const response = axios.post('http://127.0.0.1:8000/api/createUser', {
           password: password,
           email: email,
           username: username
@@ -14,7 +14,7 @@ const requests = {
     },
 
     login(username, password) {
-      const response = axios.post('http://127.0.0.1:8000/login', {
+      const response = axios.post('http://127.0.0.1:8000/api/login', {
           password: password,
           username: username
         }
@@ -24,16 +24,15 @@ const requests = {
     },
 
     checkSession(token) {
-      const response = axios.post('http://127.0.0.1:8000/checkSession', {
+      const response = axios.post('http://127.0.0.1:8000/api/checkSession', {
           access_token: token
         }
       )
-
       return response;
     },
 
     createPet(token, name, type, birthday) {
-      const response = axios.post('http://127.0.0.1:8000/createPet', {
+      const response = axios.post('http://127.0.0.1:8000/api/createPet', {
           access_token: token,
           name: name,
           type: type,
@@ -45,7 +44,7 @@ const requests = {
     },
 
     getPetsByUser(token) {
-      const response = axios.post('http://127.0.0.1:8000/getPetsByUser', {
+      const response = axios.post('http://127.0.0.1:8000/api/getPetsByUser', {
           access_token: token
         }
       )
@@ -54,7 +53,7 @@ const requests = {
     },
 
     insertMeasurementData(token, petID, bloodSugar, insulinDose) {
-      const response = axios.post('http://127.0.0.1:8000/insertMeasurementData', {
+      const response = axios.post('http://127.0.0.1:8000/api/insertMeasurementData', {
           access_token: token,
           petid: petID,
           bloodSugar: bloodSugar,

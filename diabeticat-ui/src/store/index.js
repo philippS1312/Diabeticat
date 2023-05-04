@@ -10,9 +10,6 @@ const state = reactive({
     pets: [],
 });
 
-
-
-
 const methods = {
     getName(){
         return state.username
@@ -25,6 +22,9 @@ const methods = {
         const green = Math.floor(Math.random() * 256);
         const blue = Math.floor(Math.random() * 256);
         return `rgb(${red}, ${green}, ${blue})`;
+    },
+    getSessionKey(){
+        return state.sessionKey;
     },
     setUserToken(token) {
         state.sessionKey = token;
@@ -44,6 +44,21 @@ const methods = {
     },
     setPetCount() {
         state.petCount = state.pets.length;
+    },
+    async userIsLoggedIn(){
+        const response = await apiCall.requests.checkSession(state.sessionKey)
+        if(response.status == 200){
+            if(response.data['Succuess'] != false){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    async loadUserData(){
+        const pets_response = await apiCall.requests.getPetsByUser(state.sessionKey);
+        methods.setUserPets(pets_response.data);
+        methods.setPetCount();
     }
 }
 

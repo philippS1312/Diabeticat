@@ -19,7 +19,7 @@
 <script setup>
 
 import NavigationBar from './components/BottomNavigation.vue'
-import { watch } from 'vue'
+//import { watch } from 'vue'
 import { useRouter } from 'vue-router';
 import store from "./store/index.js"
 
@@ -30,15 +30,35 @@ function showNavBar() {
   return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login' && router.currentRoute.value.fullPath != '/register' 
 }
 
-if(localStorage.getItem("token")){
-  store.state.sessionKey = localStorage.getItem("token");
-  console.log("localStorage if: " + store.state.sessionKey)
-}
+async function checkSession() {
+  var response
+  if(localStorage.getItem("token")){
+    response = await store.apiCall.requests.checkSession(localStorage.getItem("token"))
+    if (response.status == 200) {
+        console.log('checkSession: ' + response.data['Succuess'])
+        if(response.data['Succuess'] != false){
+                  // Set user informations in store
+                  store.methods.setUserToken(localStorage.getItem("token"));
+                  store.methods.setUserId(response.data['userId']);
+                  store.methods.setUserName(response.data['username']);
 
-watch(store.state.sessionKey, (session) => {
-  //localStorage.setItem("sessionStorage", session)
-  console.log("localStorage watch: " + session)
-})
+                  // Get pets for user
+                  const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);
+                  store.methods.setUserPets(pets_response.data);
+
+                  // Set petCount
+                  store.methods.setPetCount();
+                  
+                  router.push('/home');
+        } else {
+          router.push('/');
+        }
+              } else {
+                  console.log('SessionCheck failed: ' + response.statusText);
+              }
+            }
+  }
+checkSession()
 
 </script>
 
