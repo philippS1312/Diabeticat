@@ -53,11 +53,14 @@ const requests = {
     },
 
     insertMeasurementData(token, petID, bloodSugar, insulinDose) {
+      const date = new Date();
+      
       const response = axios.post('http://127.0.0.1:8000/api/insertMeasurementData', {
           access_token: token,
           petid: petID,
           bloodSugar: bloodSugar,
-          insulinDose: insulinDose
+          insulinDose: insulinDose,
+          measureDate: date
         }
       )
 
