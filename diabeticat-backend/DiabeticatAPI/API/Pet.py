@@ -53,7 +53,7 @@ async def createPet(pet: Request):
         raise HTTPException(status_code=422,
                             detail="At least one of the following request parameters is missing: 'access_token'")
 
-    if "name" in req_pet and "type" in req_pet and "birthday" in req_pet in req_pet:
+    if "name" in req_pet and "type" in req_pet and "birthday" in req_pet:
         name = req_pet["name"]
         type = req_pet["type"]
         birthday = req_pet["birthday"]
