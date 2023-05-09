@@ -1,21 +1,21 @@
 <template>
 
-    <v-card class="MeasurementData">
+  <v-card class="MeasurementData">
 
-        <!-- Messdaten Übersicht -->
-        <v-card-title id="measurement-title">Messdaten</v-card-title>
-        <v-card-text>
+      <!-- Messdaten Übersicht -->
+      <v-card-title id="measurement-title">Messdaten</v-card-title>
+      <v-card-text>
 
-        <!-- Ansicht Daten Laden -->
-        <div id="loading" v-if="loading">
-            Lade Daten...
-        </div>
+      <!-- Ansicht Daten Laden -->
+      <div id="loading" v-if="loading">
+          Lade Daten...
+      </div>
 
-        <!-- Ansicht Daten vorhanden -->
-        <div v-else-if="filteredMeasurements.length > 0">
+      <!-- Ansicht Daten vorhanden -->
+      <div v-else-if="filteredMeasurements.length > 0">
 
-            <!-- Filter (Chips) -->
-            <div class="text-left">
+          <!-- Filter (Chips) -->
+          <div class="text-left">
             <v-chip v-for="option in options"
                     :key="option.value"
                     :value="option.value"
@@ -23,10 +23,16 @@
                     :color="selectedOption === option.value ? 'primary' : undefined">
                 {{ option.label }}
             </v-chip>
-            </div>
+          </div>
 
-            <!-- Tabelle -->
-            <v-table density="compact">
+          <!-- Line Chart -->
+          <div>
+            <canvas ref="chart" />
+          </div>
+          
+
+          <!-- Tabelle -->
+          <!-- <v-table density="compact">
             <thead>
                 <tr>
                 <th class="text-left">ID</th>
@@ -41,19 +47,19 @@
                 <td class="text-left">{{ entry.insulinDose }}</td>
                 </tr>
             </tbody>
-            </v-table>
-        </div>
-        
-        <!-- Ansicht keine Daten -->
-        <div id="no-data" v-else>
-            Keine Daten verfügbar.
-        </div>
-        </v-card-text>
-    </v-card>
+          </v-table> -->
+      </div>
+      
+      <!-- Ansicht keine Daten -->
+      <div id="no-data" v-else>
+          Keine Daten verfügbar.
+      </div>
+      </v-card-text>
+  </v-card>
   
-  </template>
+</template>
   
-  <script setup>
+<script setup>
   import store from "../store/index.js"
   import { useRoute } from 'vue-router';
   import { ref, onMounted, watchEffect, computed, reactive } from 'vue';
@@ -68,9 +74,9 @@
 
   const options = [
     { label: 'Alle', value: 'all' },
-    { label: 'letzte 5 Werte', value: 5 },
-    { label: 'letzte 10 Werte', value: 10 },
-    { label: 'letzte 20 Werte', value: 20 },
+    { label: 'Gestern', value: 1 },
+    { label: 'letzte Woche', value: 7 },
+    { label: 'letzter Monat', value: 30 },
   ];
 
   const filteredMeasurements = computed(() => {
@@ -102,14 +108,14 @@
 
   onMounted(fetchMeasurements);
 
-  </script>
-  <style scoped>
+</script>
+<style scoped>
   
-    .MeasurementData {
-        margin: 1em auto;
-        padding: 1em;
-        width: 90%;
-    }
+  .MeasurementData {
+      margin: 1em auto;
+      padding: 1em;
+      width: 90%;
+  }
     
-  </style>
+</style>
   
