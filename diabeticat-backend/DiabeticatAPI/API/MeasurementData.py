@@ -24,8 +24,9 @@ async def insertData(input: Request):
     global TokenUserId
     req = await input.json()
     mydb = connectDB()
-    if "petid" in req and "bloodSugar" in req and "insulinDose" in req and "access_token" in req:
-        if req["petid"] != 0 and req["bloodSugar"] != 0 and req["insulinDose"] != 0 and "access_token" != None:
+    if "petid" in req and "bloodSugar" in req and "insulinDose" in req and "measureDate" and "access_token" in req:
+        if req["petid"] != 0 and req["bloodSugar"] != 0 and req["insulinDose"] != 0 and req["measureDate"] is not None and \
+                req["access_token"] is not None:
 
             petId = req["petid"]
 
