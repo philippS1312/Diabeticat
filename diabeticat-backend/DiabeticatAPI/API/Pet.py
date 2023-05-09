@@ -55,13 +55,14 @@ async def createPet(pet: Request):
         name = req_pet["name"]
         type = req_pet["type"]
         birthday = req_pet["birthday"]
+        color = req_pet["color"]
 
 
         mydb=connectDB()
         mycursor = mydb.cursor()
 
-        sql = "INSERT INTO Pet (name, type, birthday, userid) VALUES (%s, %s, %s, %s)"
-        val = (name, type, birthday, userid)
+        sql = "INSERT INTO Pet (name, type, birthday, color, userid) VALUES (%s, %s, %s, %s, %s)"
+        val = (name, type, birthday, color, userid)
         mycursor.execute(sql,val)
 
         mydb.commit()
@@ -116,7 +117,7 @@ async def getPetsByUser(input: Request):
                     "Notice": "Invalid Access Token!"}
 
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT petId, name, type, birthday FROM Pet Where userid ='" + userid + "'")
+        mycursor.execute("SELECT petId, name, type, birthday, color FROM Pet Where userid ='" + userid + "'")
         col_names = [col[0] for col in mycursor.description]
         myresult = mycursor.fetchall()
 
