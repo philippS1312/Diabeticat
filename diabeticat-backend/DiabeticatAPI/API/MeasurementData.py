@@ -31,6 +31,7 @@ async def insertData(input: Request):
 
             bloodSugar = req["bloodSugar"]
             insulinDose = req["insulinDose"]
+            measureDate = req["measureDate"]
 
             mycursor = mydb.cursor()
 
@@ -56,8 +57,8 @@ async def insertData(input: Request):
                     if int(TokenUserId) == int(petUserId):
                         print("TokenId = userId")
                         mycursor2 = mydb.cursor()
-                        sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose) VALUES (%s, %s, %s)"
-                        val = (petId, bloodSugar, insulinDose)
+                        sql = "INSERT INTO MeasurementData (petId, bloodSugar, insulinDose, measureDate) VALUES (%s, %s, %s, %s)"
+                        val = (petId, bloodSugar, insulinDose, measureDate)
                         mycursor2.execute(sql, val)
 
                         mydb.commit()
@@ -98,7 +99,7 @@ async def getDataByPet(input: Request):
         if req["petid"] is not None:
             petid = req["petid"]
             mycursor = mydb.cursor()
-            mycursor.execute("SELECT Pet.petId, measurementDataId, bloodSugar, insulinDose FROM MeasurementData JOIN Pet ON Pet.petId=MeasurementData.petId Where Pet.petId ='" + str(petid) + "' AND Pet.userId='" + str(userid) + "'")
+            mycursor.execute("SELECT Pet.petId, measurementDataId, bloodSugar, insulinDose, measureDate FROM MeasurementData JOIN Pet ON Pet.petId=MeasurementData.petId Where Pet.petId ='" + str(petid) + "' AND Pet.userId='" + str(userid) + "'")
             col_names = [col[0] for col in mycursor.description]
             myresult = mycursor.fetchall()
 
