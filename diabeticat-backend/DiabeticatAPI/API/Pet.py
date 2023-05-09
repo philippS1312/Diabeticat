@@ -21,6 +21,7 @@ def connectDB():
     )
     return mydb
 
+
 def protected(token):
     try:
         var = jwt.decode(token, secret_key, algorithms="HS256")
@@ -30,11 +31,11 @@ def protected(token):
                 "statuscode": 400,
                 "notice": "Invalid Access Token"}
 
+
 def handle_datetime(obj):
     """Helper function to handle datetime objects during JSON serialization"""
     if isinstance(obj, (datetime, date)):
         return obj.isoformat()
-
 
 
 @pet_router.post("/api/createPet")
@@ -49,7 +50,8 @@ async def createPet(pet: Request):
                     "statuscode": 400,
                     "Notice": "Invalid Access Token!"}
     else:
-        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
+        raise HTTPException(status_code=422,
+                            detail="At least one of the following request parameters is missing: 'access_token'")
 
     if "name" in req_pet and "type" in req_pet and "birthday" in req_pet and "color" in req_pet:
         name = req_pet["name"]
@@ -57,20 +59,22 @@ async def createPet(pet: Request):
         birthday = req_pet["birthday"]
         color = req_pet["color"]
 
-        mydb=connectDB()
+        mydb = connectDB()
         mycursor = mydb.cursor()
 
-        sql = "INSERT INTO Pet (name, type, birthday, color, userid) VALUES (%s, %s, %s, %s, %s)"
-        val = (name, type, birthday, color, userid)
-        mycursor.execute(sql,val)
+        sql = "INSERT INTO Pet (name, type, birthday, userid, color) VALUES (%s, %s, %s, %s, %s)"
+        val = (name, type, birthday, userid, color)
+        mycursor.execute(sql, val)
 
         mydb.commit()
         print(mycursor.rowcount, "New Pet inserted!")
 
-        return {"Succuess":True,
-                "Notice":"New Pet inserted!"}
+        return {"Succuess": True,
+                "Notice": "New Pet inserted!"}
     else:
-        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'name', 'type'")
+        raise HTTPException(status_code=422,
+                            detail="At least one of the following request parameters is missing: 'name', 'type'")
+
 
 @pet_router.post("/api/deletePet")
 async def deletePet(input: Request):
@@ -87,7 +91,7 @@ async def deletePet(input: Request):
 
     if "petid" in req:
         petid = str(req["petid"])
-        mydb=connectDB()
+        mydb = connectDB()
         mycursor = mydb.cursor()
 
         sql = "DELETE FROM Pet WHERE petId='" + petid + "' AND userid='" + userId + "'"
@@ -96,10 +100,12 @@ async def deletePet(input: Request):
         mydb.commit()
         print("Pet sucessfully deleted!")
 
-        return {"Succuess":True,
-                "Notice":"Pet sucessfully deleted!"}
+        return {"Succuess": True,
+                "Notice": "Pet sucessfully deleted!"}
     else:
-        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'petId'")
+        raise HTTPException(status_code=422,
+                            detail="At least one of the following request parameters is missing: 'petId'")
+
 
 @pet_router.post('/api/getPetsByUser')
 async def getPetsByUser(input: Request):
@@ -134,4 +140,5 @@ async def getPetsByUser(input: Request):
 
         return returnJson
     else:
-        raise HTTPException(status_code=422, detail="At least one of the following request parameters is missing: 'access_token'")
+        raise HTTPException(status_code=422,
+                            detail="At least one of the following request parameters is missing: 'access_token'")
