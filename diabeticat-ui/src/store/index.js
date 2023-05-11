@@ -12,19 +12,13 @@ const state = reactive({
 });
 
 const methods = {
-    getName(){
+    getName() {
         return state.username
     },
-    getInitials(name){
+    getInitials(name) {
         return name.split(' ').map((n) => n[0]).join('');
     },
-    getRandomColor(){
-        const red = Math.floor(Math.random() * 256);
-        const green = Math.floor(Math.random() * 256);
-        const blue = Math.floor(Math.random() * 256);
-        return `rgb(${red}, ${green}, ${blue})`;
-    },
-    getSessionKey(){
+    getSessionKey() {
         return state.sessionKey;
     },
     setUserToken(token) {
@@ -46,24 +40,72 @@ const methods = {
     setPetCount() {
         state.petCount = state.pets.length;
     },
-    async userIsLoggedIn(){
-        const response = await apiCall.requests.checkSession(state.sessionKey)
-        if(response.status == 200){
-            if(response.data['Succuess'] != false){
-                return true;
-            } else {
-                return false;
-            }
-        }
-    },
-    async loadUserData(){
+    async loadUserData() {
         const pets_response = await apiCall.requests.getPetsByUser(state.sessionKey);
         methods.setUserPets(pets_response.data);
         methods.setPetCount();
     },
-    logout(){
-        localStorage.setItem("token", 'expired')
-    }
+    logout() {
+        methods.setUserToken('expired')
+    },
+    async setUserData(id, name){
+        // Set user informations in store
+        methods.setUserToken(localStorage.getItem("token"));
+        methods.setUserId(id);
+        methods.setUserName(name);
+
+        // Get pets for user
+        const pets_response = await apiCall.requests.getPetsByUser(state.sessionKey);
+        methods.setUserPets(pets_response.data);
+
+        // Set petCount
+        methods.setPetCount();    
+    },
+    async checkSession() {
+        var response
+        if (localStorage.getItem("token")) {
+            if(localStorage.getItem("token") == 'expired'){
+                return false;
+            }
+            response = await apiCall.requests.checkSession(localStorage.getItem("token"))
+            if (response.status == 200) {
+                if (response.data['Succuess'] == false) {
+                    console.log('checkSession failed');
+                    return false;
+                } else {
+                    console.log('checkSession success');
+                    if(state.sessionKey == null){
+                        console.log('SessionKey null setUserData')
+                        methods.setUserData(response.data['userId'], response.data['username'])
+                    }
+                    return true;
+                }
+            } else {
+                console.log('checkSession failed: ' + response.statusText);
+            }
+        }
+    },
+    async checkLogin(){
+        var response
+        if (localStorage.getItem("token")) {
+            if(localStorage.getItem("token") == 'expired'){
+                return false;
+            }
+            response = await apiCall.requests.checkSession(localStorage.getItem("token"))
+            if (response.status == 200) {
+                if (response.data['Succuess'] == false) {
+                    console.log('checkLogin failed');
+                    return false;
+                } else {
+                    console.log('checkLogin failed');
+                    methods.setUserData(response.data['userId'], response.data['username'])
+                    return true;
+                }
+            } else {
+                console.log('checkLogin failed: ' + response.statusText);
+            }
+        }
+    },
 }
 
 export default {

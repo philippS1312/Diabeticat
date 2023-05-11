@@ -18,10 +18,12 @@
 
 <script setup>
 
+import { onMounted } from 'vue';
 import NavigationBar from './components/BottomNavigation.vue'
 //import { watch } from 'vue'
 import { useRouter } from 'vue-router';
-import store from "./store/index.js"
+import store from './store';
+//import store from "./store/index.js"
 
 const router = useRouter();
 
@@ -30,35 +32,20 @@ function showNavBar() {
   return router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login' && router.currentRoute.value.fullPath != '/register' 
 }
 
-async function checkSession() {
-  var response
-  if(localStorage.getItem("token")){
-    response = await store.apiCall.requests.checkSession(localStorage.getItem("token"))
-    if (response.status == 200) {
-        // console.log('checkSession: ' + response.data['Succuess'])
-        if(response.data['Succuess'] != false){
-                  // Set user informations in store
-                  store.methods.setUserToken(localStorage.getItem("token"));
-                  store.methods.setUserId(response.data['userId']);
-                  store.methods.setUserName(response.data['username']);
-
-                  // Get pets for user
-                  const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);
-                  store.methods.setUserPets(pets_response.data);
-
-                  // Set petCount
-                  store.methods.setPetCount();
-                  
-                  router.push('/home');
-        } else {
-          router.push('/');
-        }
-              } else {
-                  console.log('SessionCheck failed: ' + response.statusText);
-              }
-            }
+onMounted(async () => {
+  console.log('App mounted')
+  const loggedIn = await store.methods.checkLogin()
+  console.log('loggedIn: ' + loggedIn)
+  if(loggedIn){
+    router.push('/home')
+  } else {
+    if(router.currentRoute.value.fullPath != '/' && router.currentRoute.value.fullPath != '/login' && router.currentRoute.value.fullPath != '/register'){
+      console.log('redirect to login')
+      router.push('/')
+    }
   }
-checkSession()
+
+});
 
 </script>
 
