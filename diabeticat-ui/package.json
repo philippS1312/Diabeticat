@@ -18,6 +18,7 @@
     "core-js": "^3.8.3",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.1.6",
     "vuetify": "^3.1.11",
     "webfontloader": "^1.0.0"
