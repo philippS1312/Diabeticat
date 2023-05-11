@@ -133,7 +133,7 @@
     }
     setChartData();
   }
-}
+  
   function filterMeasurements() {
     const now = new Date()
     const dateToFilterTo = new Date(now.getTime() - selectedOption.value * 24 * 60 * 60 * 1000)
