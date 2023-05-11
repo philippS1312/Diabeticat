@@ -1,7 +1,7 @@
 <template>
     <v-card class="PetCard" v-for="pet in store.state.pets" :key="pet.petId">
         <v-card @click="router.push(`/Pet/${pet.petId}`)">
-            <v-avatar :color="store.methods.getRandomColor()">
+            <v-avatar :color="pet.color">
                 <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>
             </v-avatar>
             <v-card-title>{{ pet.name }}</v-card-title>

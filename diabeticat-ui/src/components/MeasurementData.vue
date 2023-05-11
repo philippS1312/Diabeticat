@@ -1,7 +1,5 @@
 <template>
-
   <v-card class="MeasurementData">
-
       <!-- Messdaten Übersicht -->
       <v-card-title id="measurement-title">Messdaten</v-card-title>
       
@@ -135,7 +133,7 @@
     }
     setChartData();
   }
-
+}
   function filterMeasurements() {
     const now = new Date()
     const dateToFilterTo = new Date(now.getTime() - selectedOption.value * 24 * 60 * 60 * 1000)
@@ -267,6 +265,5 @@
     padding-top: 35px;
   }
 
-    
 </style>
   
