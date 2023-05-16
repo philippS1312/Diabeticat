@@ -71,7 +71,6 @@
     async function create() {
         try {
             const response_create = await store.apiCall.requests.createPet(store.state.sessionKey, name.value, type.value, date.value);
-
             if (response_create.status == 200) {
                 // Update store
                 const pets_response = await store.apiCall.requests.getPetsByUser(store.state.sessionKey);

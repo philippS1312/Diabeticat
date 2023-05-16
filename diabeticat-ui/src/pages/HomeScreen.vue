@@ -23,7 +23,7 @@
                 <v-slide-group-item v-for="pet in store.state.pets" :key="pet.petId">
                     <v-card @click="router.push(`/Pet/${pet.petId}`)">
 
-                        <v-avatar :color="store.methods.getRandomColor()">
+                        <v-avatar :color="pet.color">
                             <span class="text-h5">{{ store.methods.getInitials(pet.name) }}</span>
                         </v-avatar>
                         <v-card-title>{{ pet.name }}</v-card-title>
@@ -48,14 +48,8 @@
     
     import store from "../store/index.js";
     import { useRouter } from 'vue-router';
-    import { onMounted } from 'vue';
 
     const router = useRouter();
-
-    onMounted(() => {
-        //console.log(JSON.parse(JSON.stringify(store.state.pets)))
-        // console.log(JSON.parse(JSON.stringify(store.state.pets)))
-    });
 
 </script>
 
