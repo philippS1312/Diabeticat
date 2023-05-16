@@ -1,0 +1,11 @@
+{
+  "appId": "com.example.app",
+  "appName": "Diabeticat",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "app": {
+    "name": "Ihr-App-Name",
+    "version": "1.0.0",
+    "icon": "src/assets/logo-neu.png"
+  }
+}
