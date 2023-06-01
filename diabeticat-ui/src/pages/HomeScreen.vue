@@ -1,7 +1,7 @@
 <template>
 
     <v-card>
-        <v-card-title>Willkommen!</v-card-title>
+        <h1>Willkommen!</h1>
 
         <v-img src="../assets/logo-transparent.png" />
 

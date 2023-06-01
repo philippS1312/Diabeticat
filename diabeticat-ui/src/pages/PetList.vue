@@ -1,4 +1,8 @@
 <template>
+    <v-card class="PetCard">
+        <h1>Übersicht der Haustiere</h1>
+    </v-card>
+
     <v-card class="PetCard" v-for="pet in store.state.pets" :key="pet.petId">
         <v-card @click="router.push(`/Pet/${pet.petId}`)">
             <v-avatar :color="pet.color">
@@ -14,18 +18,21 @@
 </template>
 
 <script setup>
-import store from "../store/index.js"
-import { useRouter } from 'vue-router';
-const router = useRouter();
+
+    import store from "../store/index.js"
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
 
 </script>
 
 <style scoped>
-.PetCard{
-    margin: 1em auto;
-    width: 90%;
-}
-.v-avatar {
-    margin-top: 1em;
-}
+
+    .PetCard{
+        margin: 1em auto;
+        width: 90%;
+    }
+    .v-avatar {
+        margin-top: 1em;
+    }
+
 </style>
