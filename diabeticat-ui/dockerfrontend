@@ -1,0 +1,21 @@
+# Node.js-Basisimage
+FROM node:18.15
+
+# Setzen des Arbeitsverzeichnisses im Container
+WORKDIR /app
+
+# Kopieren der Anwendungsdateien in das Arbeitsverzeichnis
+COPY . /app
+
+# Installieren der erforderlichen Abhängigkeiten
+RUN npm install
+
+# Bauen der Vue-App
+WORKDIR /app/src
+RUN npm run build
+
+# Setzen des Arbeitsverzeichnisses zurück auf das Hauptverzeichnis
+WORKDIR /app
+
+# Starten der Anwendung
+CMD ["npm", "run", "serve"]

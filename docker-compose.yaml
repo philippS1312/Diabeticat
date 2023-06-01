@@ -1,0 +1,18 @@
+version: '3'
+services:
+  python-app:
+    build:
+      context: ./diabeticat-backend/DiabeticatAPI
+      dockerfile: dockerbackend
+
+    ports:
+      - 8000:8000
+
+  vue-app:
+    build:
+      context: ./diabeticat-ui/
+      dockerfile: dockerfrontend
+
+    ports:
+      - 8080:8080
+    command: npm run serve

@@ -1,0 +1,20 @@
+# Python-Basisimage
+FROM python:3.7
+
+# Setzen des Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# Kopieren der Anwendungsdateien in das Arbeitsverzeichnis
+COPY . /app
+
+# Kopieren der requirements.txt in das Arbeitsverzeichnis
+COPY requirements.txt /app
+
+# Installation der erforderlichen Abhängigkeiten
+RUN python -m pip install -r requirements.txt
+
+# Port für den externen Zugriff öffnen
+EXPOSE 8000
+
+# Starten der Anwendung mit Uvicorn
+CMD uvicorn main:app --host 0.0.0.0 --port 8000
